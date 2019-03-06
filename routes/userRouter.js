@@ -11,6 +11,12 @@ userRouter.get('/userhome',(req,res)=>{
 userRouter.get('/',(req,res)=>{
     res.render('pages/homepage.ejs')
 })
+userRouter.get('/books/bookid',(req,res)=>{
+    res.render('pages/bookid.ejs')
+})
+userRouter.get('/books/userHome',(req,res)=>{
+    res.redirect('/user')
+})
 
 userRouter.post('/',(req,res)=>
  {
