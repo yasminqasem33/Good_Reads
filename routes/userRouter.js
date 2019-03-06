@@ -5,7 +5,7 @@ const userRouter = express.Router()
 
 userRouter.get('/userhome',(req,res)=>{
     res.render('pages/userHome.ejs');
-    req.body.loginname="dina";
+    
 })
 
 userRouter.get('/',(req,res)=>{
