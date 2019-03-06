@@ -17,51 +17,21 @@
         <th>Name</th>
         <th>Actions</th>
       </tr>
-      <tr>
-        <td>1</td>
-        <td>java</td>
-        <td>
-          <a href="#deletebook"> Delete</a>
-          <a href="#editbook">Edit</a>
-
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>novel</td>
-        <td>
-          <a href="#deletebook"> Delete</a>
-          <a href="#editbook">Edit</a>
-
-        </td>
-      </tr>
-      <tr>
-          <td>1</td>
-          <td>java</td>
-          <td>
-            <a href="#deletebook"> Delete</a>
-            <a href="#editbook">Edit</a>
-  
-          </td>
-        </tr>
+      <% categories.forEach((category) => { %>
         <tr>
-            <td>1</td>
-            <td>java</td>
+            <td>
+                <%=category._id %>
+            </td>
+            <td>
+                <%= category.name %>
+            </td>
             <td>
               <a href="#deletebook"> Delete</a>
               <a href="#editbook">Edit</a>
     
             </td>
-          </tr>
-          <tr>
-              <td>1</td>
-              <td>java</td>
-              <td>
-                <a href="#deletebook"> Delete</a>
-                <a href="#editbook">Edit</a>
-      
-              </td>
-            </tr>
+        </tr>
+        <% })%>
     </table>
   </div>
 
@@ -75,73 +45,34 @@
         <th>CategoryID</th>
         <th>AutherID</th>
         <th>Actions</th>
-      </tr>
-      <tr>
-        <td>arwa</td>
-        <td>Smith</td>
-        <td>50</td>
-        <td>50</td>
-        <td>50</td>
-        <td>
-          <a href="#deletebook"> Delete</a>
-          <a href="#editbook">Edit</a>
-        </td>
-      </tr>
-      <tr>
-        <td>Eve</td>
-        <td>Jackson</td>
-        <td>94</td>
-        <td>50</td>
-        <td>50</td>
-        <td>
-          <a href="#deletebook"> Delete</a>
-          <a href="#editbook">Edit</a>
-        </td>
-      </tr>
-      <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-          <td>50</td>
-          <td>50</td>
-          <td>
-            <a href="#deletebook"> Delete</a>
-            <a href="#editbook">Edit</a>
-          </td>
         </tr>
-        <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-            <td>50</td>
-            <td>50</td>
-            <td>
-              <a href="#deletebook"> Delete</a>
-              <a href="#editbook">Edit</a>
-            </td>
-          </tr>
+        
+       
+        <% books.forEach((book) => { %>
           <tr>
-              <td>arwa</td>
-              <td>Smith</td>
-              <td>50</td>
-              <td>50</td>
-              <td>50</td>
+              <td>
+                  <%= book._id %>
+              </td>
+              <td>
+                  <%= book.image %>
+              </td>
+              <td>
+                <%= book.name %>
+            </td>
+            <td>
+              <%= book.categoryid %>
+          </td>
+          <td>
+            <%= book.authorid %>
+        </td>
               <td>
                 <a href="#deletebook"> Delete</a>
                 <a href="#editbook">Edit</a>
+      
               </td>
-            </tr>
-            <tr>
-                <td>arwa</td>
-                <td>Smith</td>
-                <td>50</td>
-                <td>50</td>
-                <td>50</td>
-                <td>
-                  <a href="#deletebook"> Delete</a>
-                  <a href="#editbook">Edit</a>
-                </td>
-              </tr>
+          </tr>
+          <% })%>
+   
     </table>
 
   </div>
@@ -157,51 +88,31 @@
         <th>Date of birth</th>
         <th>Actions</th>
       </tr>
+    </tr>
+    <% authors.forEach((author) => { %>
       <tr>
-        <td>dina</td>
-        <td>Smith</td>
-        <td>50</td>
-        <td></td>
-        <td></td>
-        <td></td>
-
-      </tr>
-      <tr>
-        <td>Eve</td>
-        <td>Jackson</td>
-        <td>94</td>
-        <td></td>
-        <td></td>
-        <td></td>
-
-      </tr>
-      <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>
+              <%=author._id %>
+          </td>
+          <td>
+              <%= author.first_name %>
+          </td>
+          <td>
+            <%= author.last_name %>
+        </td>
+        <td>
+          <%= author.photo %>
+      </td>
+      <td>
+        <%= author.date_birth %>
+    </td>
+          <td>
+            <a href="#deletebook"> Delete</a>
+            <a href="#editbook">Edit</a>
   
-        </tr>
-        <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-            <td></td>
-            <td></td>
-            <td></td>
-    
-          </tr>
-          <tr>
-              <td>Eve</td>
-              <td>Jackson</td>
-              <td>94</td>
-              <td></td>
-              <td></td>
-              <td></td>
-      
-            </tr>
+          </td>
+      </tr>
+      <% })%>
     </table>
   </div>
 
