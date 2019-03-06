@@ -10,7 +10,22 @@
   <a href="#Third">Authors</a>
 
   <div class="myDiv" id="First" style="display:none">
-    <button style=float:right>add</button>
+    <button  onclick="openForm1()" style=float:right>add</button>
+    <div class="form-popup" id="myForm1" style="display:none">
+      <form action="/action_page.php" class="form-container">
+        <h1>Add Category</h1>
+    
+        <label for="Category"><b>Category</b></label>
+        <input type="text" placeholder="Enter Category" name="newCategory" required>
+    
+        
+    
+        <button type="submit" class="btn">Add Category</button>
+        <button type="button" class="btn cancel" onclick="closeForm1()">Close</button>
+      </form>
+    </div>
+    
+
     <table style="width:100%">
       <tr>
         <th>ID</th>
@@ -22,7 +37,6 @@
         <td>java</td>
         <td>
           <a href="#deletebook"> Delete</a>
-          <a href="#editbook">Edit</a>
 
         </td>
       </tr>
@@ -31,7 +45,6 @@
         <td>novel</td>
         <td>
           <a href="#deletebook"> Delete</a>
-          <a href="#editbook">Edit</a>
 
         </td>
       </tr>
@@ -40,7 +53,6 @@
           <td>java</td>
           <td>
             <a href="#deletebook"> Delete</a>
-            <a href="#editbook">Edit</a>
   
           </td>
         </tr>
@@ -48,9 +60,7 @@
             <td>1</td>
             <td>java</td>
             <td>
-              <a href="#deletebook"> Delete</a>
-              <a href="#editbook">Edit</a>
-    
+              <a href="#deletebook"> Delete</a>    
             </td>
           </tr>
           <tr>
@@ -58,15 +68,37 @@
               <td>java</td>
               <td>
                 <a href="#deletebook"> Delete</a>
-                <a href="#editbook">Edit</a>
-      
+            
               </td>
             </tr>
     </table>
   </div>
 
   <div class="myDiv" id="Second" style="display:none">
-    <button style=float:right>add</button>
+
+    <button  onclick="openForm2()" style=float:right>add</button>
+    <div class="form-popup" id="myForm2" style="display:none">
+      <form action="/action_page.php" class="form-container">
+        <h1>Add Book</h1>
+    
+        <label for="Books"><b>Book Name</b></label>
+        <input type="text" placeholder="Enter Book Name" name="newBookname" required>
+
+        <label for="Books"><b>Category</b></label>
+        <input type="text" placeholder="Enter Category" name="newBookcategory" required>
+
+        <label for="Books"><b>Author</b></label>
+        <input type="text" placeholder="Enter Author" name="newBookauthor" required>
+
+
+        <label for="Books"><b>Image</b></label>
+        <input type="text" placeholder="Enter Image" name="newBookimage" required>
+    
+        <button type="submit" class="btn">Add Book</button>
+        <button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
+      </form>
+    </div>
+
     <table style="width:100%">
       <tr>
         <th>ID</th>
@@ -84,7 +116,6 @@
         <td>50</td>
         <td>
           <a href="#deletebook"> Delete</a>
-          <a href="#editbook">Edit</a>
         </td>
       </tr>
       <tr>
@@ -95,7 +126,6 @@
         <td>50</td>
         <td>
           <a href="#deletebook"> Delete</a>
-          <a href="#editbook">Edit</a>
         </td>
       </tr>
       <tr>
@@ -106,7 +136,6 @@
           <td>50</td>
           <td>
             <a href="#deletebook"> Delete</a>
-            <a href="#editbook">Edit</a>
           </td>
         </tr>
         <tr>
@@ -117,7 +146,6 @@
             <td>50</td>
             <td>
               <a href="#deletebook"> Delete</a>
-              <a href="#editbook">Edit</a>
             </td>
           </tr>
           <tr>
@@ -128,7 +156,6 @@
               <td>50</td>
               <td>
                 <a href="#deletebook"> Delete</a>
-                <a href="#editbook">Edit</a>
               </td>
             </tr>
             <tr>
@@ -139,7 +166,6 @@
                 <td>50</td>
                 <td>
                   <a href="#deletebook"> Delete</a>
-                  <a href="#editbook">Edit</a>
                 </td>
               </tr>
     </table>
@@ -147,7 +173,8 @@
   </div>
 
   <div class="myDiv" id="Third" style="display:none">
-    <button style=float:right>add</button>
+    
+
     <table style="width:100%">
       <tr>
         <th>ID</th>
@@ -205,6 +232,22 @@
     </table>
   </div>
 
+ 
+<script>
+function openForm1() {
+  document.getElementById("myForm1").style.display = "block";
+}
+function openForm2() {
+  document.getElementById("myForm2").style.display = "block";
+}
+function closeForm1() {
+  document.getElementById("myForm1").style.display = "none";
+}
+function closeForm2() {
+  document.getElementById("myForm2").style.display = "none";
+}
+</script>
+
   <style>
     .myDiv:target {
 
@@ -223,5 +266,63 @@
     td {
       padding: 15px;
     }
+
+    body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: block;
+  position: fixed;
+  align-self: center;
+  border: 3px solid #f1f1f1;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color:blue;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color:darkslategray;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+    
   </style>
   <% include ../layout/footer %>
