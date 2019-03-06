@@ -3,8 +3,12 @@ const express = require('express')
 
 const userRouter = express.Router()
 
+userRouter.get('/userhome',(req,res)=>{
+    res.render('pages/userhome.ejs')
+})
+
 userRouter.get('/',(req,res)=>{
-    res.render('pages/userHome.ejs')
+    res.render('pages/homepage.ejs')
 })
 userRouter.get('/books/bookid',(req,res)=>{
     res.render('pages/bookid.ejs')
