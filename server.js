@@ -2,7 +2,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const adminModel = require('./models/adminModel')
-const userModel = require('./models/userModel')
 const ROUTER = process.env.ROUTER || 5000;
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/goodReadDb';
 
@@ -28,7 +27,8 @@ app.use(express.json())
 
 
 app.use('/admin',adminRouter);
-
+app.use('/user',userRouter);
+app.use(express.static(__dirname + '/public'));
 app.listen(ROUTER,()=>
 {
     console.log("Server Started!")
