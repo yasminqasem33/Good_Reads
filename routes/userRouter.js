@@ -20,6 +20,12 @@ userRouter.get('/',(req,res)=>{
     res.render('pages/homepage.ejs')
 })
 
+
+userRouter.get('/signin',(req,res)=>{
+    res.render('pages/usersignin.ejs')
+})
+
+
 userRouter.post('/userhome',(req,res)=>{
     res.render('pages/userHome.ejs');
     
@@ -54,10 +60,7 @@ userModel.find({firstName : req.body.uname},{userpassword:getSHA1ofJSON(req.body
     if(err){
         console.log("false password")
     }
- else{
-   // res.redirect('/user/userhome')
-
- }
+ 
 
 })
 })
