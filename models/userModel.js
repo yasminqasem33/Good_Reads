@@ -11,8 +11,8 @@ const userSchema =  new mongoose.Schema(
         userImage:{type: String}
     }
 )
-
-const user1=new userSchema({
+const userModel = mongoose.model('users',userSchema);
+const user1=new userModel({
     firstName:'dina',
     lastName:'gamal',
     email:'dina@com',
