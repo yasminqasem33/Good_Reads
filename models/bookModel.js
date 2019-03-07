@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 
+
 const bookSchema =  new mongoose.Schema(
     {
         image:{type: String},
@@ -19,15 +20,6 @@ const bookSchema =  new mongoose.Schema(
 )
 const bookModel = mongoose.model('bookSchema',bookSchema)
 
-// bookModel.create({
-//     bookName:"book1",
-//         bookImage:"saa",
-//         authorId:"5c7fe1c80d5bea34984f5fd3"},
-//          function (err, userData) {
-//     if (err) return handleError(err);
-
-//     console.log(userData)
 
 
-// })
 module.exports=bookModel
