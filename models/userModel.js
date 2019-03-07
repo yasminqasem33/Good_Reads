@@ -11,7 +11,12 @@ const userSchema =  new mongoose.Schema(
         userImage:{type: String}
     }
 )
-const userModel = mongoose.model('users',userSchema);
+
+
+
+
+const userModel = mongoose.model('userSchema',userSchema)
+module.exports= userModel
 const user1=new userModel({
     firstName:'dina',
     lastName:'gamal',
@@ -24,8 +29,3 @@ const user1=new userModel({
          console.log("saved");
      }
  }); 
-
-
-
-const userModel = mongoose.model('userSchema',userSchema)
-module.exports= userModel
