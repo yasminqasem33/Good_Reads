@@ -20,7 +20,7 @@ userRouter.get('/',(req,res)=>{
     res.render('pages/homepage.ejs')
 })
 
-userRouter.get('/userhome',(req,res)=>{
+userRouter.post('/userhome',(req,res)=>{
     res.render('pages/userHome.ejs');
     
 })
@@ -45,13 +45,22 @@ userRouter.post('/',(req,res)=>{
     }
     else
     {
-        console.log("fslse password")
+        console.log("false password")
     }
-   
 })
 
+userRouter.post('/',(req,res)=>{
+userModel.find({firstName : req.body.uname},{userpassword:getSHA1ofJSON(req.body.pass)}, function(err, data){
+    if(err){
+        console.log("false password")
+    }
+ else{
+   // res.redirect('/user/userhome')
 
+ }
 
+})
+})
 
 userRouter.get('/books/bookid',(req,res)=>{
     res.render('pages/bookid.ejs')
