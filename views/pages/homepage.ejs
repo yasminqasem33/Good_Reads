@@ -91,18 +91,18 @@
     }
     </style>
 <link rel="stylsheet" href="../../public/css/homeuser">
-<form class="log"> 
+<form class="log" action="/user/userhome" method="POST"> 
     <div class="container">
       <input type="text" placeholder="Enter Username" name="uname" required>
-      <input type="password" placeholder="Enter Password" name="psw" required>  
-      <button type="submit" class="bt">Login</button>
+      <input type="password" placeholder="Enter Password" name="pass" required>  
+      <button class="bt">Login</button>
     </div>
   
     <div class="container" style="background-color:#f1f1f1">
     </div>
   </form>
   
-  <form action="/user/userhome" method="GET" style="border:1px solid #ccc" class="v">   
+  <form action="/user/userhome" method="POST" style="border:1px solid #ccc" class="v">   
     <div class="container">
       <h3>Create your free account</h3>
       <hr>
@@ -116,7 +116,6 @@
       <!--to upload photo-->
       <form>
         Upload your photo: <input type="file" name="myFile"><br><br>
-        <input type="submit">
       </form>
       
       <label>
@@ -127,7 +126,7 @@
   
       <div class="clearfix">
        
-        <button type="submit" class="signupbtn">Sign Up</button>
+        <button class="signupbtn">Sign Up</button>
       </div>
     </div>
   </form>
