@@ -12,6 +12,18 @@ const userSchema =  new mongoose.Schema(
     }
 )
 
+const user1=new userSchema({
+    firstName:'dina',
+    lastName:'gamal',
+    email:'dina@com',
+    password:'12345',
+    userImage:'23uyioo'
+});
+ user1.save((err)=>{
+     if(!err){
+         console.log("saved");
+     }
+ }); 
 
 
 

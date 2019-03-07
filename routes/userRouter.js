@@ -41,7 +41,7 @@ userRouter.post('/',(req,res)=>
  {
     if(req.body.uname=="dina" && req.body.psw=="12345")
     {
-        res.redirect('/user/userhome')     
+        res.redirect('/user/userHome')     
     }
 })
 
