@@ -72,6 +72,7 @@
     background-color: #ddd; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
+    margin-top: 47px;
   }
   
   /* The navigation menu links */
@@ -206,3 +207,34 @@
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: #B0E0E6;}
+
+
+  #book img{
+    
+    height: 200px;
+    margin-top: 30px;
+    width: 125px;
+    margin-left: 30px;
+    border: 1px black solid;
+    float: left;
+    
+    
+   
+  }
+  #userRev{
+    display: block;
+    margin-top: 50px;
+    height: 100px;
+    border: 2px groove (internal value);
+    width: 90%;
+    margin-left: 30px;
+  }
+  #userRev fieldset{
+    height: 200px;
+    border-radius: 8px;
+  }
+  legend {
+    border: 1px #CCC solid;
+    margin-left: 30px;
+    font-size: 20px;
+}
