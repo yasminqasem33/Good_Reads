@@ -38,7 +38,7 @@ userRouter.post('/',(req,res)=>{
             userImage:"sdds"
         })
         .then ((usr)=>{
-            res.redirect('/user/userhome')
+            res.redirect('/user')
             console.log(usr)
     
         })
@@ -47,9 +47,12 @@ userRouter.post('/',(req,res)=>{
     {
         console.log("fslse password")
     }
-
-    
+   
 })
+
+
+
+
 userRouter.get('/books/bookid',(req,res)=>{
     res.render('pages/bookid.ejs')
 })
