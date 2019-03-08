@@ -8,7 +8,9 @@ const userSchema =  new mongoose.Schema(
         lastName:{type:String},
         email:{type:String},
         userpassword:{type:String},
-        userImage:{type: String}
+        userImage:{type: String},
+        state:{type: String}
+
     }
 )
 
@@ -17,16 +19,24 @@ const userSchema =  new mongoose.Schema(
 
 const userModel = mongoose.model('userSchema',userSchema)
 
-module.exports= userModel
-const user1=new userModel({
-    firstName:'dina',
-    lastName:'gamal',
-    email:'dina@com',
-    password:'12345',
-    userImage:'23uyioo'
-});
- user1.save((err)=>{
-     if(!err){
-         console.log("saved");
-     }
- }); 
+
+
+
+ module.exports= userModel
+
+
+
+// const user1=new userModel({
+//     firstName:'so',
+//     lastName:'so',
+//     email:'so@com',
+//     userpassword:'12345',
+//     userImage:'23yio',
+//     state:'offline'
+// });
+//  user1.save((err)=>{
+//      if(!err){
+//          console.log("saved");
+//      }
+//  }); 
+

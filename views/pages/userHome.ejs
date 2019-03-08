@@ -11,8 +11,11 @@
       
         <div class="topnav">
                 <a class="active">Home</a>
+
                 <button name="loginname" title="Contact" value="Contact"></button>
-                <button    >Logout</button>
+                <form action="/signin/:id/userhome/logout" method="POST">
+                <button name="logout" >Logout</button>
+                </form>
                 <input type="text" placeholder="Search..">
               </div>             
               <div class="sidenav">
