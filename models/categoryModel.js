@@ -14,7 +14,6 @@ const categoryModel = mongoose.model('categorySchema',categorySchema)
 // })
 // cat1.save ((err)=>{
 
-<<<<<<< HEAD
 // })
 // const cat2=new categoryModel({
 //  name:"art"
@@ -40,7 +39,4 @@ const categoryModel = mongoose.model('categorySchema',categorySchema)
 //     console.log(data)
 // })
 module.exports=categoryModel
-=======
 
- module.exports=categoryModel
->>>>>>> 7bcdb8b5fcb94024b17715f6da6bf701dee6d03a
