@@ -133,6 +133,7 @@ userRouter.post('/userhome', (req, res) => {
     res.render('pages/userHome.ejs')
 })
 
+
 userRouter.post('/',(req,res)=>{
     if(req.body.psw === req.body.psw-repeat)
     {
