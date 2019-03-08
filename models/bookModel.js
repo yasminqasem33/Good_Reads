@@ -19,9 +19,11 @@ const bookSchema =  new mongoose.Schema(
 )
 const bookModel = mongoose.model('bookSchema',bookSchema)
 
+
 // bookModel.create({
-//     bookName:"book1",
-//         bookImage:"saa",
+//     name:"book1",
+//         image:"saa",
+//         categoryId:"5c815540480b7716c92485a6",
 //         authorId:"5c7fe1c80d5bea34984f5fd3"},
 //          function (err, userData) {
 //     if (err) return handleError(err);
