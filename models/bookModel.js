@@ -20,7 +20,6 @@ const bookSchema =  new mongoose.Schema(
 )
 const bookModel = mongoose.model('bookSchema',bookSchema)
 
-<<<<<<< HEAD
 
 // bookModel.create({
 //     name:"book1",
@@ -31,8 +30,6 @@ const bookModel = mongoose.model('bookSchema',bookSchema)
 //     if (err) return handleError(err);
 
 //     console.log(userData)
-=======
->>>>>>> 7bcdb8b5fcb94024b17715f6da6bf701dee6d03a
 
 
 module.exports=bookModel
