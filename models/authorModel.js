@@ -14,16 +14,8 @@ const authorSchema =  new mongoose.Schema(
 )
 
 const authorModel = mongoose.model('authorSchema',authorSchema)
-// authorModel.create({
-//     first_name:"author11",
-//     last_name:"ssss",
-//     photo:"dss",
-//     date_birth:"assa"
-// }, function (err, authorData) {
-//     if (err) return handleError(err);
-
-//     console.log(authorData)
 
 
-// })
+
+
 module.exports=authorModel

@@ -16,3 +16,17 @@ const userSchema =  new mongoose.Schema(
 
 
 const userModel = mongoose.model('userSchema',userSchema)
+
+module.exports= userModel
+const user1=new userModel({
+    firstName:'dina',
+    lastName:'gamal',
+    email:'dina@com',
+    password:'12345',
+    userImage:'23uyioo'
+});
+ user1.save((err)=>{
+     if(!err){
+         console.log("saved");
+     }
+ }); 

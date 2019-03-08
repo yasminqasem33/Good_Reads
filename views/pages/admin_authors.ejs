@@ -1,0 +1,39 @@
+<% include ../layout/headeradmin %>
+
+    
+
+    <table style="width:100%">
+      <tr>
+        <th>ID</th>
+        <th>Photo</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date of birth</th>
+        <th>Actions</th>
+      </tr>
+    </tr>
+    <% authors.forEach((author) => { %>
+      <tr>
+          <td>
+              <%=author._id %>
+          </td>
+          <td>
+              <%= author.first_name %>
+          </td>
+          <td>
+            <%= author.last_name %>
+        </td>
+        <td>
+          <%= author.photo %>
+      </td>
+      <td>
+        <%= author.date_birth %>
+    </td>
+          <td>
+              <a onclick="window.location.href = '/admin/authors/<%= author._id %>/deleteAuthor'" value='<%= author._id%>'>delete</a>                 
+
+  
+          </td>
+      </tr>
+      <% })%>
+    </table>

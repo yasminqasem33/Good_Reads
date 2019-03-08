@@ -14,6 +14,11 @@ userRouter.get('/categories', (req, res) => {
                 })
 
         })
+const userModel = require('../models/userModel')
+const userRouter = express.Router()
+userRouter.get('/categories', (req,res)=>
+{
+    res.render('pages/usercategories.ejs')
 
 })
 userRouter.get('/categories/:id', (req, res, next) => {
@@ -88,6 +93,17 @@ userRouter.get('/categories/:id', (req, res, next) => {
 // })
 
 userRouter.get('/userhome', (req, res) => {
+userRouter.get('/',(req,res)=>{
+    res.render('pages/homepage.ejs')
+})
+
+
+userRouter.get('/signin',(req,res)=>{
+    res.render('pages/usersignin.ejs')
+})
+
+
+userRouter.post('/userhome',(req,res)=>{
     res.render('pages/userHome.ejs');
 
 })
@@ -116,6 +132,41 @@ userRouter.get('/', (req, res) => {
     res.render('pages/homepage.ejs')
 })
 userRouter.get('/books/bookid', (req, res) => {
+
+
+userRouter.post('/',(req,res)=>{
+    if(req.body.psw === req.body.psw-repeat)
+    {
+        userModel.create({
+            firstName: req.body.FirstName,
+            lastName: req.body.LastName,
+            email: req.body.email,
+            userpassword: getSHA1ofJSON(req.body.psw),
+            userImage:"sdds"
+        })
+        .then ((usr)=>{
+            res.redirect('/user')
+            console.log(usr)
+    
+        })
+    }
+    else
+    {
+        console.log("false password")
+    }
+})
+
+userRouter.post('/',(req,res)=>{
+userModel.find({firstName : req.body.uname},{userpassword:getSHA1ofJSON(req.body.pass)}, function(err, data){
+    if(err){
+        console.log("false password")
+    }
+ 
+
+})
+})
+
+userRouter.get('/books/bookid',(req,res)=>{
     res.render('pages/bookid.ejs')
 })
 userRouter.get('/books/userHome', (req, res) => {
@@ -130,8 +181,16 @@ userRouter.post('/', (req, res) => {
 
 userRouter.get('/categories/:id', (req, res) => {
     res.render('/pages/')
+userRouter.post('/',(req,res)=>
+ {
+    if(req.body.uname=="dina" && req.body.psw=="12345")
+    {
+        res.redirect('/user/userHome')     
+    }
 })
 
-
+var getSHA1ofJSON = function(input){
+    return crypto.createHash('sha1').update(JSON.stringify(input)).digest('hex')
+}
 
 module.exports = userRouter
