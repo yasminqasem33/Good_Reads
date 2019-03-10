@@ -8,7 +8,8 @@ const userSchema =  new mongoose.Schema(
         lastName:{type:String},
         email:{type:String},
         userpassword:{type:String},
-        userImage:{type: String}
+        userImage:{type: String},
+        book:[{status:String, rate:String}]
     }
 )
 

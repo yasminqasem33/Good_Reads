@@ -4,6 +4,24 @@ const userRouter = express.Router()
 const userModel = require('../models/userModel')
 const categoryModel = require('../models/categoryModel')
 const bookmodel = require('../models/bookModel')
+const autherModel = require('../models/authorModel')
+
+userRouter.get('/hpage/all', (req, res) => {   //this URL is just user for test. It can be changed.
+    bookmodel.find().then((books) => {
+        // res.send(books);
+        books.forEach(book=>{
+            autherModel.findById(book.authorId).then(author=>{
+                res.render('pages/userHome.ejs', {
+                    books:books,
+                    author: author.first_name+" "+author.last_name
+                })
+                // console.log(author.first_name+" "+author.last_name);
+            })
+        })
+    })
+})
+
+
 
 userRouter.get('/categories', (req, res) => {
 
@@ -15,10 +33,9 @@ userRouter.get('/categories', (req, res) => {
                 })
 
         })
-    })
+})
 
-userRouter.get('/categories', (req,res)=>
-{
+userRouter.get('/categories', (req, res) => {
     res.render('pages/usercategories.ejs')
 
 })
@@ -33,17 +50,12 @@ userRouter.get('/categories/:id', (req, res, next) => {
                     name: name,
                     record: record
                 })
-                console.log(record)
+            console.log(record)
         })
     })
 })
 
 
-// userRouter.get('/categories', (req,res)=>
-// {
-//     res.render('pages/usercategories.ejs')
-
-// })
 // userRouter.get('/categories/:categoryid/eco1', (req, res) =>{
 //     res.render('pages/eco1.ejs')
 // })
@@ -51,7 +63,7 @@ userRouter.get('/categories/:id', (req, res, next) => {
 
 
 
-userRouter.get('/signin',(req,res)=>{
+userRouter.get('/signin', (req, res) => {
     res.render('pages/usersignin.ejs')
 })
 
@@ -71,24 +83,24 @@ userRouter.post('/userhome', (req, res) => {
 })
 
 
-userRouter.post('/',(req,res)=>{
-    if(req.body.psw === req.body.psw-repeat)
-    {
+
+
+userRouter.post('/', (req, res) => {
+    if (req.body.psw === req.body.psw - repeat) {
         userModel.create({
             firstName: req.body.FirstName,
             lastName: req.body.LastName,
             email: req.body.email,
             userpassword: getSHA1ofJSON(req.body.psw),
-            userImage:"sdds"
+            userImage: "sdds"
         })
-        .then ((usr)=>{
-            res.redirect('/signin')
-            console.log(usr)
-    
-        })
+            .then((usr) => {
+                res.redirect('/signin')
+                console.log(usr)
+
+            })
     }
-    else
-    {
+    else {
         console.log("false password")
     }
 })
@@ -108,7 +120,7 @@ userRouter.get('/categories/:id', (req, res) => {
 
 
 
-var getSHA1ofJSON = function(input){
+var getSHA1ofJSON = function (input) {
     return crypto.createHash('sha1').update(JSON.stringify(input)).digest('hex')
 }
 
