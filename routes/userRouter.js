@@ -26,7 +26,7 @@ userRouter.get('/signin',(req,res)=>{
 })
 
 
-userRouter.post('/userhome',(req,res)=>{
+userRouter.get('/userhome',(req,res)=>{
     res.render('pages/userHome.ejs');
     
 })
