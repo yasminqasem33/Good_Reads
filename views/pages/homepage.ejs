@@ -93,7 +93,7 @@
 <link rel="stylsheet" href="../../public/css/homeuser">
 
   
-  <form action="/user/userhome" method="POST" style="border:1px solid #ccc" class="v">   
+  <form action="/" method="POST" style="border:1px solid #ccc" class="v">   
     <div class="container">
       <h3>Create your free account</h3>
       <hr>
@@ -102,16 +102,14 @@
       <input type="text" placeholder="Last Name" name="LastName" required>
       <input type="text" placeholder="Enter Email" name="email" required>
       <input type="password" placeholder="Enter Password" name="psw" required>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+      <input type="password" placeholder="Repeat Password" name="pswrepeat" required>
       <br><br>
       <!--to upload photo-->
       <form>
         Upload your photo: <input type="file" name="myFile"><br><br>
       </form>
       
-     
-      
-      <a href="/user/signin" style="color:dodgerblue">Already a user</a>
+      <a onclick="window.location.href='/signin'" style="color:dodgerblue">Already a user</a>
   
       <div class="clearfix">
        

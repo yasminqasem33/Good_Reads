@@ -39,11 +39,14 @@
 <div display: inline>
   <div class="vertical-menu">
     <a class="active">categories</a>
-    <a href="/user/category">Economics</a>
-    <a href="/user/category">Sports</a>
-    <a href="/user/category">society</a>
-    <a href="/user/category">Art</a>
-    <a href="/user/category">Horror</a>
+    <% categories.forEach((category) => { %>
+      <a onclick="window.location.href='/user/categories/<%=category._id%>'">
+        <%=category.name %></a>
+    <% })%>
+    <!-- <a href="/user/categories/sprt1">Sports</a>
+    <a href="/user/categories/scty1">society</a>
+    <a href="/user/categories/art1">Art</a>
+    <a href="/user/categories/hror1">Horror</a> -->
 
   </div>
 </div>

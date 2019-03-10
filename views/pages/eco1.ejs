@@ -92,16 +92,21 @@
 .img{ float:left; width:25%; text-align:center;}
 .img img{ width:25%;}
 .img a{ display:block;}
+.bck{
+  float:right;
+  background-color: #2196F3;
+}
   </style>
   </head>
   <body>
   
   <!-- Header -->
+  <button class="bck" onclick="back()" id="bckbtn">back</button>
   <div class="header" id="myHeader">
-    <h1>Economics</h1>
-    <button id = myButton1 class="btn" onclick="one()">1</button>
+    <h1><%= name.name %></h1>
+    <button id = myButton1 class="btn active" onclick="one()">1</button>
     <button id = myButton2 class="btn" onclick="two()">2</button>
-    <button id = myButton3 class="btn active" onclick="three()">3</button>
+    <button id = myButton3 class="btn" onclick="three()">3</button>
   </div>
   
   <!-- Photo Grid -->
@@ -110,38 +115,47 @@
     
     <div class="column">
       <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-        <a href="">Book name</a>
-        <a href="">Author name</a>
+        <a href="bookid"><%=record.name%></a>
+        <a href="bookid">Author name</a>
     </div>
     <div class="column">
       <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-        <a href="">Book name</a>
-        <a href="">Author name</a>
+        <a href="bookid">Book name</a>
+        <a href="bookid">Author name</a>
     </div>
     <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-      <a href="">Book name</a>
-        <a href="">Author name</a>
+      <a href="bookid">Book name</a>
+        <a href="bookid">Author name</a>
   </div>
   <div class="column">
     <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-      <a href="">Book name</a>
-        <a href="">Author name</a>
+      <a href="bookid">Book name</a>
+        <a href="bookid">Author name</a>
   </div>
   </div>
 
   <script type="text/javascript">
-    function two(){
-      document.getElementById("myButton2").onclick = function () {
-          location.href = "2";
-      };
+  function two(){
+    document.getElementById("myButton2").onclick = function () {
+        location.href = "eco2";
     };
-  </script>
+  };
+</script>
 <script type="text/javascript">
-    function one(){
-      document.getElementById("myButton1").onclick = function () {
-          location.href = "1";
-      };
+  function three(){
+    document.getElementById("myButton3").onclick = function () {
+        location.href = "eco3";
     };
-  </script>
+  };
+</script>
+<script type="text/javascript">
+  function back(){
+    document.getElementById("bckbtn").onclick = function () {
+        window.location = "/user/categories";
+    };
+  };
+</script>
+  
+
 
   

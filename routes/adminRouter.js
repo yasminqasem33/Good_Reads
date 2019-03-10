@@ -136,11 +136,11 @@ adminRouter.get('/', (req, res) => {
         })
 
     })
-    // adminRouter.get('/categories/:id/editCategory',(req,res)=>
-    // {
-    //     console.log("sfs")
+    adminRouter.get('/categories/:id/editCategory',(req,res)=>
+    {
+        console.log("sfs")
 
-    // })
+    })
     
     //del author
     adminRouter.get('/authors/:id/deleteAuthor',(req,res)=>

@@ -1,23 +1,113 @@
+
 const express = require('express')
-const userModel = require('../models/userModel')
 const userRouter = express.Router()
-userRouter.get('/categories', (req,res)=>
-{
+const userModel = require('../models/userModel')
+const categoryModel = require('../models/categoryModel')
+const bookmodel = require('../models/bookModel')
+const autherModel = require('../models/authorModel')
+
+userRouter.get('/hpage/all', (req, res) => {   //this URL is just user for test. It can be changed.
+    bookmodel.find().then((books) => {
+        // res.send(books);
+        books.forEach(book=>{
+            autherModel.findById(book.authorId).then(author=>{
+                res.render('pages/userHome.ejs', {
+                    books:books,
+                    author: author.first_name+" "+author.last_name
+                })
+                // console.log(author.first_name+" "+author.last_name);
+            })
+        })
+    })
+})
+
+
+
+userRouter.get('/categories', (req, res) => {
+
+    categoryModel.find()
+        .then((categories) => {
+            res.render('pages/usercategories.ejs',
+                {
+                    categories: categories
+                })
+
+        })
+})
+
+userRouter.get('/categories', (req, res) => {
     res.render('pages/usercategories.ejs')
 
 })
-userRouter.get('/categories/1', (req, res) =>{
-    res.render('pages/1.ejs')
-})
-userRouter.get('/categories/2', (req, res) =>{
-    res.render('pages/2.ejs')
-})
-userRouter.get('/categories/3', (req, res) =>{
-    res.render('pages/3.ejs')
+
+
+userRouter.get('/userhome',(req,res)=>{
+    res.render('pages/userHome.ejs');
+    
+userRouter.get('/categories/:id', (req, res, next) => {
+    bookmodel.findOne({ categoryId: req.params.id }).then((record) => {
+        categoryModel.findById(req.params.id).then((name) => {
+
+            res.render('pages/eco1.ejs',
+                {
+                    name: name,
+                    record: record
+                })
+            console.log(record)
+        })
+    })
 })
 
-userRouter.get('/',(req,res)=>{
+
+// userRouter.get('/categories/:categoryid/eco1', (req, res) =>{
+//     res.render('pages/eco1.ejs')
+// })
+
+
+
+
+
+
+
+
+// userRouter.get('/categories/:categoryid/art1', (req, res) =>{
+//     res.render('pages/art1.ejs')
+// })
+
+userRouter.get('/', (req, res) => {
     res.render('pages/homepage.ejs')
+})
+
+userRouter.post('/',(req,res)=>{
+    if(req.body.psw === req.body.pswrepeat)
+    {
+        userModel.findOne({ email: req.body.email}).then((record) => {
+            console.log(record)
+            if (record ){
+                res.redirect('/')
+                console.log("already user")
+            } else {
+                userModel.create({
+                    firstName: req.body.FirstName,
+                    lastName: req.body.LastName,
+                    email: req.body.email,
+                    userpassword: req.body.psw,
+                    userImage:"sddkkk",
+                    state:"offline"
+                })
+                .then ((usr)=>{
+                    res.redirect('/signin')
+                    console.log(usr)
+            
+                })
+            }              
+        })   
+    }
+    else
+    {
+        res.redirect('/')
+        console.log("false password")
+    }
 })
 
 
@@ -25,68 +115,57 @@ userRouter.get('/signin',(req,res)=>{
     res.render('pages/usersignin.ejs')
 })
 
+userRouter.post('/signin',(req,res)=>{
+    userModel.findOne({ email: req.body.email}).then((record) => {
+        console.log(record)
+        if (record && record.userpassword === req.body.pass){
+            console.log(record.state)  
+          console.log('User and password is correct')
+         
+          userModel.updateOne({_id: record._id}, ({state:'online'}), function(err, raw) {
+            if (err) {
+              res.send(err);
+            }   
+          }); 
+          console.log(record.state)  
+               res.redirect('/signin/id='+record._id+'/userhome')
+         } else {
+          console.log(" wrong");
+          res.redirect('/signin')       
+         }              
+ })
+})
 
-userRouter.get('/userhome',(req,res)=>{
-    res.render('pages/userHome.ejs');
-    
+
+userRouter.get('/signin/:id/userhome', (req, res) => {
+    res.render('pages/userHome.ejs')
+})
+
+
+userRouter.post('/signin/:id/userhome/logout',(req,res)=>{
+    userModel.updateOne({_id: req.params._id}, ({state:'offline'}), function(err, raw) {
+        if (err) {
+          res.send(err);
+        }  
+        else{
+          res.redirect('/signin')  
+        }
+    }); 
 })
 
 
 
-userRouter.post('/',(req,res)=>{
-    if(req.body.psw === req.body.psw-repeat)
-    {
-        userModel.create({
-            firstName: req.body.FirstName,
-            lastName: req.body.LastName,
-            email: req.body.email,
-            userpassword: getSHA1ofJSON(req.body.psw),
-            userImage:"sdds"
-        })
-        .then ((usr)=>{
-            res.redirect('/user')
-            console.log(usr)
-    
-        })
-    }
-    else
-    {
-        console.log("false password")
-    }
-})
 
-userRouter.post('/',(req,res)=>{
-userModel.find({firstName : req.body.uname},{userpassword:getSHA1ofJSON(req.body.pass)}, function(err, data){
-    if(err){
-        console.log("false password")
-    }
- 
 
-})
-})
 
-userRouter.get('/books/bookid',(req,res)=>{
-    res.render('pages/bookid.ejs')
-})
-userRouter.get('/books/userHome',(req,res)=>{
-    res.redirect('/user')
+    res.render('/pages/')
 })
 
 
-userRouter.get('/category', (req, res) =>{
-    res.redirect('/user')
-})
 
-userRouter.post('/',(req,res)=>
- {
-    if(req.body.uname=="dina" && req.body.psw=="12345")
-    {
-        res.redirect('/user/userHome')     
-    }
-})
 
-var getSHA1ofJSON = function(input){
+var getSHA1ofJSON = function (input) {
     return crypto.createHash('sha1').update(JSON.stringify(input)).digest('hex')
 }
 
-module.exports=userRouter
+module.exports = userRouter
