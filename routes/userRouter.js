@@ -63,9 +63,6 @@ userRouter.get('/categories/:id', (req, res, next) => {
 
 
 
-userRouter.get('/signin', (req, res) => {
-    res.render('pages/usersignin.ejs')
-})
 
 
 
@@ -78,42 +75,86 @@ userRouter.get('/', (req, res) => {
     res.render('pages/homepage.ejs')
 })
 
-userRouter.post('/userhome', (req, res) => {
-    res.render('pages/userHome.ejs')
-})
-
-
-
-
-userRouter.post('/', (req, res) => {
-    if (req.body.psw === req.body.psw - repeat) {
-        userModel.create({
-            firstName: req.body.FirstName,
-            lastName: req.body.LastName,
-            email: req.body.email,
-            userpassword: getSHA1ofJSON(req.body.psw),
-            userImage: "sdds"
-        })
-            .then((usr) => {
-                res.redirect('/signin')
-                console.log(usr)
-
-            })
+userRouter.post('/',(req,res)=>{
+    if(req.body.psw === req.body.pswrepeat)
+    {
+        userModel.findOne({ email: req.body.email}).then((record) => {
+            console.log(record)
+            if (record ){
+                res.redirect('/')
+                console.log("already user")
+            } else {
+                userModel.create({
+                    firstName: req.body.FirstName,
+                    lastName: req.body.LastName,
+                    email: req.body.email,
+                    userpassword: req.body.psw,
+                    userImage:"sddkkk",
+                    state:"offline"
+                })
+                .then ((usr)=>{
+                    res.redirect('/signin')
+                    console.log(usr)
+            
+                })
+            }              
+        })   
     }
-    else {
+    else
+    {
+        res.redirect('/')
         console.log("false password")
     }
 })
 
 
+userRouter.get('/signin',(req,res)=>{
+    res.render('pages/usersignin.ejs')
+})
+
+userRouter.post('/signin',(req,res)=>{
+    userModel.findOne({ email: req.body.email}).then((record) => {
+        console.log(record)
+        if (record && record.userpassword === req.body.pass){
+            console.log(record.state)  
+          console.log('User and password is correct')
+         
+          userModel.updateOne({_id: record._id}, ({state:'online'}), function(err, raw) {
+            if (err) {
+              res.send(err);
+            }   
+          }); 
+          console.log(record.state)  
+               res.redirect('/signin/id='+record._id+'/userhome')
+         } else {
+          console.log(" wrong");
+          res.redirect('/signin')       
+         }              
+ })
+})
+
+
+userRouter.get('/signin/:id/userhome', (req, res) => {
+    res.render('pages/userHome.ejs')
+})
+
+
+userRouter.post('/signin/:id/userhome/logout',(req,res)=>{
+    userModel.updateOne({_id: req.params._id}, ({state:'offline'}), function(err, raw) {
+        if (err) {
+          res.send(err);
+        }  
+        else{
+          res.redirect('/signin')  
+        }
+    }); 
+})
 
 
 
 
 
 
-
-userRouter.get('/categories/:id', (req, res) => {
     res.render('/pages/')
 })
 
