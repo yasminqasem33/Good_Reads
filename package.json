@@ -13,6 +13,7 @@
     "alert-node": "^1.2.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.18",
     "nodemon": "^1.18.10",
     "popups": "^1.1.3"
