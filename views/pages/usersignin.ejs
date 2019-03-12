@@ -91,16 +91,32 @@
     }
     </style>
 <link rel="stylsheet" href="../../public/css/homeuser">
-<form class="log" action="/signin" method="POST"> 
+<form class="log" action="/signin/" method="POST"> 
     <div class="container">
       <input type="email" placeholder="Enter your E-mail" name="email" required>
       <input type="password" placeholder="Enter Password" name="pass" required>  
-      <button class="bt">Login</button>
+      <button class="bt" onclick="LoginUser()">Login</button>
     </div>
   
     <div class="container" style="background-color:#f1f1f1">
     </div>
   </form>
   
-  
+
+  <script>
+    const token =localStorage.getItem("token")
+    function LoginUser() {
+      return fetch('http://localhost:5000/signin/', {
+        body: "user",
+        method: 'POST',
+        headers: {
+         token
+        },
+      }).then(response =>
+          response.json()
+      )
+    }
+    </script>
+
+
 <% include ../layout/footer %>

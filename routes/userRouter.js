@@ -1,13 +1,27 @@
 
 const express = require('express')
+var expressValidator = require('express-validator');
 const userRouter = express.Router()
+var bodyParser = require('body-parser')
+require('../server');
+userRouter.use(expressValidator())
 const userModel = require('../models/userModel')
 const categoryModel = require('../models/categoryModel')
 const bookmodel = require('../models/bookModel')
-
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
+const passport = require('passport');
+var authenticate = require('../authenticate');
+require('passport-jwt');
+const LocalStrategy = require('passport-local').Strategy;
+exports.local=passport.use(new LocalStrategy(userModel.authenticate()))
+userRouter.use(passport.initialize());
 userRouter.get('/categories', (req, res) => {
+userRouter.use(passport.initialize());
+userRouter.use(passport.session());
 
-    categoryModel.find()
+
+categoryModel.find()
         .then((categories) => {
             res.render('pages/usercategories.ejs',
                 {
@@ -37,185 +51,61 @@ userRouter.get('/categories/:id', (req, res, next) => {
         })
     })
 })
-
-// userRouter.get('/categories/:id', (req,res, next)=>
-// {
-//     categoryModel.findById(req.params.id).then((name)=>{
-
-//         res.render('pages/eco1.ejs',
-//         {
-
-//             name:name
-//         })
-//         //res.send(name.name)
-//     })
-//     bookmodel.findOne({categoryId:req.params.id}).then((record)=>{
-//         res.render('pages/eco1.ejs',
-//         {
-//             record:record
-//         })
-//     })
-
-//   //  res.render('pages/eco1.ejs')
-// })
-
-
-// userRouter.get('/categories', (req,res)=>
-// {
-//     res.render('pages/usercategories.ejs')
-
-// })
-// userRouter.get('/categories/:categoryid/eco1', (req, res) =>{
-//     res.render('pages/eco1.ejs')
-// })
-// userRouter.get('/categories/:categoryid/eco2', (req, res) =>{
-//     res.render('pages/eco2.ejs')
-// })
-// userRouter.get('/categories/:categoryid/eco3', (req, res) =>{
-//     res.render('pages/eco3.ejs')
-// })
-
-// userRouter.get('/categories/:categoryid/sprt1', (req, res) =>{
-//     res.render('pages/sprt1.ejs')
-// })
-// userRouter.get('/categories/:categoryid/sprt2', (req, res) =>{
-//     res.render('pages/sprt2.ejs')
-// })
-// userRouter.get('/categories/:categoryid/sprt3', (req, res) =>{
-//     res.render('pages/sprt3.ejs')
-// })
-
-// userRouter.get('/categories/:categoryid/scty1', (req, res) =>{
-//     res.render('pages/scty1.ejs')
-// })
-// userRouter.get('/categories/:categoryid/scty2', (req, res) =>{
-//     res.render('pages/scty2.ejs')
-// })
-// userRouter.get('/categories/:categoryid/scty3', (req, res) =>{
-//     res.render('pages/scty3.ejs')
-// })
-
-
-
-
-
-
-
-
-
-// userRouter.get('/categories/:categoryid/art1', (req, res) =>{
-//     res.render('pages/art1.ejs')
-// })
-// userRouter.get('/categories/:categoryid/art2', (req, res) =>{
-//     res.render('pages/art2.ejs')
-// })
-// userRouter.get('/categories/:categoryid/art3', (req, res) =>{
-//     res.render('pages/art3.ejs')
-// })
-
-// userRouter.get('/categories/:categoryid/hror1', (req, res) =>{
-//     res.render('pages/hror1.ejs')
-// })
-// userRouter.get('/categories/:categoryid/hror2', (req, res) =>{
-//     res.render('pages/hror2.ejs')
-// })
-// userRouter.get('/categories/:categoryid/:categoryid/hror3', (req, res) =>{
-//     res.render('pages/hror3.ejs')
-// })
-
 userRouter.get('/', (req, res) => {
-    res.render('pages/homepage.ejs')
+res.render("pages/homepage.ejs")
 })
 
-userRouter.post('/',(req,res)=>{
-    if(req.body.psw === req.body.pswrepeat)
-    {
-        userModel.findOne({ email: req.body.email}).then((record) => {
-            console.log(record)
-            if (record ){
-                res.redirect('/')
-                console.log("already user")
-            } else {
-                userModel.create({
-                    firstName: req.body.FirstName,
-                    lastName: req.body.LastName,
-                    email: req.body.email,
-                    userpassword: req.body.psw,
-                    userImage:"sddkkk",
-                    state:"offline"
-                })
-                .then ((usr)=>{
-                    res.redirect('/signin')
-                    console.log(usr)
-            
-                })
-            }              
-        })   
-    }
-    else
-    {
+
+userRouter.post('/', (req, res) => {
+    const errors = req.validationErrors(req);
+    if (errors) {
+        console.log("error in sign up page ")
+        res.json(errors);
         res.redirect('/')
-        console.log("false password")
+    } else {
+        console.log("1");
+    
+    userModel.register(new userModel({username:req.body.email,email:req.body.email,firstName: req.body.firstName, lastName:req.body.lastName}),req.body.psw, (err ,user)=>{
+        if(err){
+        res.json({err})
+        }
+        else{
+          passport.authenticate('local')(req, res, ()=>{
+              res.json ({succses:"scssess"})
+          })
+
+        }
     }
-})
+    )}})
+    
 
-
-userRouter.get('/signin',(req,res)=>{
+userRouter.get('/signin', (req, res) => {
     res.render('pages/usersignin.ejs')
 })
 
-userRouter.post('/signin',(req,res)=>{
-    userModel.findOne({ email: req.body.email}).then((record) => {
-        console.log(record)
-        if (record && record.userpassword === req.body.pass){
-            console.log(record.state)  
-          console.log('User and password is correct')
-         
-          userModel.updateOne({_id: record._id}, ({state:'online'}), function(err, raw) {
-            if (err) {
-              res.send(err);
-            }   
-          }); 
-          console.log(record.state)  
-               res.redirect('/signin/id='+record._id+'/userhome')
-         } else {
-          console.log(" wrong");
-          res.redirect('/signin')       
-         }              
- })
-})
 
-
-userRouter.get('/signin/:id/userhome', (req, res) => {
+userRouter.get('/signin/', passport.authenticate('local'), (req, res) => {
     res.render('pages/userHome.ejs')
 })
 
-
-userRouter.post('/signin/:id/userhome/logout',(req,res)=>{
-    userModel.updateOne({_id: req.params._id}, ({state:'offline'}), function(err, raw) {
-        if (err) {
-          res.send(err);
-        }  
-        else{
-          res.redirect('/signin')  
-        }
-    }); 
-})
-
-
-
-
-
-
-userRouter.get('/categories/:id', (req, res) => {
-    res.render('/pages/')
-})
+userRouter.post('/signin', passport.authenticate('local'), (req, res) => {
+    var token = authenticate.getToken({ email: req.body.email});
+     token="Authintication: Bearer "+token
+     localStorage.setItem("token,token")
+     res.render("pages/userHome",token)
+    console.log(token)
+    res.send({
+        message: "Authintication: Bearer "+
+        token
+    });
+    res.json({
+        token: "Bearer " + token
+        });
+        res.se
+    req.header("Authintication: Bearer "+
+    token)
+});
 
 
-
-
-var getSHA1ofJSON = function(input){
-    return crypto.createHash('sha1').update(JSON.stringify(input)).digest('hex')
-}
 
 module.exports = userRouter
