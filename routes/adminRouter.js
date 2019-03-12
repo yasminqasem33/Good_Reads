@@ -10,40 +10,32 @@ const adminRouter = express.Router()
 adminRouter.get('/', (req, res) => {
     res.render('pages/adminsignin.ejs')
 });
-
-
-//categories
-function getCategories(res) {
-    categoryModel.find()
-        .then((categories) => {
-            res.render('pages/admin_categories.ejs', {
-                categories: categories
-            })
-        })
-}
-//change
 adminRouter.get('/categories', (req, res) => {
-    categoryModel.find()
-        .then((categories) => {
-            res.render('pages/admin_categories.ejs', {
-                categories: categories
-            })
-        })
-    // getCategories(res)
-    // categoryModel.create({
-    //     _id:req.query.id,
-    //     name:req.body.name
-    // },
-    //     ()=>
-    //     {
-
-    //     })
+    getCategories(res)
 
 })
-//  adminRouter.post('/categories',(req,res)=>
-//  {
-//      getCategories(res)
-//  })
+adminRouter.post('/categories/addCategory_andsave', (req, res) => {
+    categoryModel.findOne({ name: req.body.name })
+        .then((category) => {
+            if (category == null) {
+                categoryModel.create({
+                    name: req.body.name
+                }, (category) => {
+                    res.redirect('/admin/categories')
+
+                })
+            }
+            else { res.send("Repeated Book name,Enter Back To Try Again") }
+        })
+
+
+
+
+})
+adminRouter.get('/categories/addCategories', (req, res) => {
+    res.render('pages/admin_formCategory.ejs', { form: "add" })
+
+})
 adminRouter.get('/authors', (req, res) => {
     authorModel.find()
         .then((authors) => {
@@ -83,24 +75,17 @@ adminRouter.get('/categories/:id/deleteCategory', (req, res) => {
         })
 
 })
-adminRouter.post('/categories', (req, res) => {
 
-    categoryModel.create({
-        name: req.body.name
-    })
-        .then(() => {
-
-            res.redirect('/admin/categories')
-        })
-
-})
 adminRouter.post('/categories/:id/editCategory_andsave', (req, res) => {
-    categoryModel.updateOne( req.params._id , { $set: { name: req.body.name }})
+    categoryModel.findByIdAndUpdate(req.params.id, { name: req.body.name } )
         .then((updated) => {
-            console.log(req.params.id)
+            console.log("this is id"+req.params.id)
+
+            console.log("this is new name"+req.body.name)
             console.log(updated)
-            console.log(req.body.name)
             res.redirect('/admin/categories')
+        }).catch(err=>{
+            res.send("id not found")
         })
 
 })
@@ -110,34 +95,13 @@ adminRouter.get('/categories/:id/editCategory', (req, res) => {
     categoryModel.findOne(
         { _id: req.params.id })
         .then((category) => {
-            // console.log(category)
-            res.render('pages/admin_editCategories',
+            console.log("this is category which passed to input"+category)
+            res.render('pages/admin_formCategory.ejs',
                 {
+                    form: "edit",
                     category: category
                 })
-            // res.redirect(url.format({
-            //     pathname:"/admin/categories",
-            //     query: {
-            //        "id": req.params.id,
 
-
-            //      }}))
-
-
-
-            // categoryModel.create({
-            //     _id:category._id,
-            //     name:req.body.name
-
-            // }).then(()=>
-            // {
-            //     // categoryModel.find().then((data)=>
-            //     // {
-            //     //     console.log(data)
-            //     // })
-            //     res.redirect('/admin/categories')
-
-            // })
 
         }
         )
@@ -224,7 +188,14 @@ adminRouter.post('/', (req, res) => {
 
 
 })
-
+function getCategories(res) {
+    categoryModel.find()
+        .then((categories) => {
+            res.render('pages/admin_categories.ejs', {
+                categories: categories
+            })
+        })
+}
 
 
 
