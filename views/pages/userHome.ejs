@@ -32,171 +32,84 @@
                           <th>Rating</th>
                           <th>Shelve</th>
                         </tr>
+                        <% books.forEach((book) => { %>
                         <tr>
-                          <td>Alfreds Futterkiste</td>
-                          <td>Maria Anders</td>
-                          <td>Germany</td>
+                          <td><%=book.image%></td>
+                          <td><%=book.name%></td>
+                          <td><%=author%></td>
                           <td>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                            <%const v = "2"%>
+                            <%if (v == "0"){%>
+                              
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <%}else if (v == "1"){%>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star "></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <%}else if (v == "2"){%>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <%}else if (v == "3"){%>
+                                  <span class="fa fa-star checked"></span>
+                                  <span class="fa fa-star checked"></span>
+                                  <span class="fa fa-star checked"></span>
+                                  <span class="fa fa-star"></span>
+                                  <span class="fa fa-star"></span>
+                                  <%}else if (v == "4"){%>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <%}else if (v == "5"){%>
+                                      <span class="fa fa-star checked"></span>
+                                      <span class="fa fa-star checked"></span>
+                                      <span class="fa fa-star checked"></span>
+                                      <span class="fa fa-star checked"></span>
+                                      <span class="fa fa-star checked"></span>
+
+                            <%}%>
                         </td>
                         <td>
-                                <div class="rate">
-                                        <input type="radio" id="star5" name="rate" value="5" />
-                                        <label for="star5" title="text">5 stars</label>
-                                        <input type="radio" id="star4" name="rate" value="4" />
-                                        <label for="star4" title="text">4 stars</label>
-                                        <input type="radio" id="star3" name="rate" value="3" />
-                                        <label for="star3" title="text">3 stars</label>
-                                        <input type="radio" id="star2" name="rate" value="2" />
-                                        <label for="star2" title="text">2 stars</label>
-                                        <input type="radio" id="star1" name="rate" value="1" />
-                                        <label for="star1" title="text">1 star</label>
-                                      </div>     
-                        </td>
-                        <td>
-                                <div class="chooseshelves">
-                                        <button class="dropbtn">Dropdown</button>
-                                        <div class="dropdown-content">
-                                          <a href="#">shelve 1</a>
-                                          <a href="#">shelve 2</a>
-                                          <a href="#">shelve 3</a>
-                                        </div>
-                                      </div> 
-                        </td>
-                        </tr>
-                        <tr>
-                          <td>Centro comercial Moctezuma</td>
-                          <td>Francisco Chang</td>
-                          <td>Mexico</td>
-                          <td>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </td>
-                            <td>
-                                    <div class="rate">
-                                            <input type="radio" id="star5" name="rate" value="5" />
-                                            <label for="star5" title="text">5 stars</label>
-                                            <input type="radio" id="star4" name="rate" value="4" />
-                                            <label for="star4" title="text">4 stars</label>
-                                            <input type="radio" id="star3" name="rate" value="3" />
-                                            <label for="star3" title="text">3 stars</label>
-                                            <input type="radio" id="star2" name="rate" value="2" />
-                                            <label for="star2" title="text">2 stars</label>
-                                            <input type="radio" id="star1" name="rate" value="1" />
-                                            <label for="star1" title="text">1 star</label>
-                                          </div>     
-                            </td>
-                        </tr>
-                        <tr>
-                          <td>Ernst Handel</td>
-                          <td>Roland Mendel</td>
-                          <td>Austria</td>
-                          <td>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </td>
-                            <td>
-                                    <div class="rate">
-                                            <input type="radio" id="star5" name="rate" value="5" />
-                                            <label for="star5" title="text">5 stars</label>
-                                            <input type="radio" id="star4" name="rate" value="4" />
-                                            <label for="star4" title="text">4 stars</label>
-                                            <input type="radio" id="star3" name="rate" value="3" />
-                                            <label for="star3" title="text">3 stars</label>
-                                            <input type="radio" id="star2" name="rate" value="2" />
-                                            <label for="star2" title="text">2 stars</label>
-                                            <input type="radio" id="star1" name="rate" value="1" />
-                                            <label for="star1" title="text">1 star</label>
-                                          </div>     
-                            </td>
-                        </tr>
-                        <tr>
-                          <td>Island Trading</td>
-                          <td>Helen Bennett</td>
-                          <td>UK</td>
-                          <td>
-                                <span class="fa fa-star "></span>
-                                <span class="fa fa-star "></span>
-                                <span class="fa fa-star "></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </td>
-                            <td>
-                                    <div class="rate">
-                                            <input type="radio" id="star5" name="rate" value="5" />
-                                            <label for="star5" title="text">5 stars</label>
-                                            <input type="radio" id="star4" name="rate" value="4" />
-                                            <label for="star4" title="text">4 stars</label>
-                                            <input type="radio" id="star3" name="rate" value="3" />
-                                            <label for="star3" title="text">3 stars</label>
-                                            <input type="radio" id="star2" name="rate" value="2" />
-                                            <label for="star2" title="text">2 stars</label>
-                                            <input type="radio" id="star1" name="rate" value="1" />
-                                            <label for="star1" title="text">1 star</label>
-                                          </div>     
-                            </td>
-                        </tr>
-                        <tr>
-                          <td>Laughing Bacchus Winecellars</td>
-                          <td>Yoshi Tannamuri</td>
-                          <td>Canada</td>
-                          <td>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </td>
-                            <td>
-                                    <div class="rate">
-                                            <input type="radio" id="star5" name="rate" value="5" />
-                                            <label for="star5" title="text">5 stars</label>
-                                            <input type="radio" id="star4" name="rate" value="4" />
-                                            <label for="star4" title="text">4 stars</label>
-                                            <input type="radio" id="star3" name="rate" value="3" />
-                                            <label for="star3" title="text">3 stars</label>
-                                            <input type="radio" id="star2" name="rate" value="2" />
-                                            <label for="star2" title="text">2 stars</label>
-                                            <input type="radio" id="star1" name="rate" value="1" />
-                                            <label for="star1" title="text">1 star</label>
-                                          </div>     
-                            </td>
-                        </tr>
-                        <tr>
-                          <td>Magazzini Alimentari Riuniti</td>
-                          <td>Giovanni Rovelli</td>
-                          <td>Italy</td>
-                          <td>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </td>
-                            <td>
-                                    <div class="rate">
-                                            <input type="radio" id="star5" name="rate" value="5" />
-                                            <label for="star5" title="text">5 stars</label>
-                                            <input type="radio" id="star4" name="rate" value="4" />
-                                            <label for="star4" title="text">4 stars</label>
-                                            <input type="radio" id="star3" name="rate" value="3" />
-                                            <label for="star3" title="text">3 stars</label>
-                                            <input type="radio" id="star2" name="rate" value="2" />
-                                            <label for="star2" title="text">2 stars</label>
-                                            <input type="radio" id="star1" name="rate" value="1" />
-                                            <label for="star1" title="text">1 star</label>
-                                          </div>     
-                            </td>
+                            <div class="rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                  </div>     
+                    </td>
+                    <td>
+                        <div class="chooseshelves">
+                                <button class="dropbtn">Dropdown</button>
+                                <div class="dropdown-content">
+                                  <a href="#">shelve 1</a>
+                                  <a href="#">shelve 2</a>
+                                  <a href="#">shelve 3</a>
+                                </div>
+                              </div> 
+                </td>
+                      </tr>
+
+                        <% })%>
+
+                       
+                      
+                       
                         </tr>
                       </table>
                     </div>
