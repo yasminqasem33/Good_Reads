@@ -115,29 +115,29 @@
     
     <div class="column">
       <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-        <a href="bookid"><%=record.name%></a>
-        <a href="bookid">Author name</a>
+        <a href="/categories/"><%=record[0].name%></a>
+        <a href="bookid"><%=author[0].first_name+" "+author[0].last_name%></a>
     </div>
     <div class="column">
       <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-        <a href="bookid">Book name</a>
-        <a href="bookid">Author name</a>
+        <a href="bookid"><%=record[1].name%></a>
+        <a href="bookid"><%=author[1].first_name+" "+author[1].last_name%></a>
     </div>
     <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-      <a href="bookid">Book name</a>
-        <a href="bookid">Author name</a>
+      <a href="bookid"><%=record[2].name%></a>
+        <a href="bookid"><%=author[2].first_name+" "+author[2].last_name%></a>
   </div>
   <div class="column">
     <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-      <a href="bookid">Book name</a>
-        <a href="bookid">Author name</a>
+      <a href="bookid"><%=record[3].name%></a>
+        <a href="bookid"><%=author[3].first_name+" "+author[3].last_name%></a>
   </div>
   </div>
 
   <script type="text/javascript">
   function two(){
     document.getElementById("myButton2").onclick = function () {
-        location.href = "eco2";
+      window.location='/categories/<%=name.id%>/eco2';
     };
   };
 </script>
@@ -151,11 +151,7 @@
 <script type="text/javascript">
   function back(){
     document.getElementById("bckbtn").onclick = function () {
-        window.location = "/user/categories";
+        window.location = "/categories";
     };
   };
 </script>
-  
-
-
-  

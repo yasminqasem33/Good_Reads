@@ -13,9 +13,14 @@ const categoryModel = mongoose.model('categorySchema',categorySchema)
 // const cat1=new categoryModel({
 //  name:"economy"
 // })
-// cat1.save ((err)=>{
+// cat1.save((err)=>{
+//          if(!err){
+//              console.log(cat1);
+//          }
+//      }); 
+    
 
-// })
+
 // const cat2=new categoryModel({
 //  name:"art"
 // })
@@ -39,5 +44,10 @@ const categoryModel = mongoose.model('categorySchema',categorySchema)
 // {
 //     console.log(data)
 // })
+// 
+// categoryModel.find().then((data)=>{
+//     console.log(data)
+// })
+
 module.exports=categoryModel
 
