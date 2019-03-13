@@ -1,31 +1,39 @@
 <% include ../layout/headeradmin %>
 
-
-
-
- 
-
-
     <button  onclick="openForm2() " style=float:right>add</button>
 
     <div class="form-popup" id="myForm2" style="display:none">
-      <form action="/admin/books" method="POST" class="form-container">
+      
+      <form method="POST" action="/admin/books"class="form-container">
         <h1>Add Book</h1>
     
         <label for="Books"><b>Book Name</b></label>
-        <input type="text" placeholder="Enter Book Name" name="newBookname" required>
+        <input type="text" placeholder="Enter Book Name" name="name" required>
 
-        <label for="Books"><b>Category</b></label>
-        <input type="text" placeholder="Enter Category" name="newBookcategory" required>
+        
 
         <label for="Books"><b>Author</b></label>
-        <input type="text" placeholder="Enter Author" name="newBookauthor" required>
-
+        
+          
+            <select name="authors" id="books">
+                <% authors.forEach((author) => { %>
+                <option value=<%= author.first_name %>> <%= author.first_name %> </option>
+                  <% })%>
+            </select>
+            <select name="categories" id="category">
+                <% categories.forEach((category) => { %>
+                <option value=<%= category.name %>> <%= category.name %> </option>
+                  <% })%>
+            </select>
+            
+        
+        
 
         <label for="Books"><b>Image</b></label>
-        <input type="text" placeholder="Enter Image" name="newBookimage" required>
+        <input type="text" placeholder="Enter Image" name="image" required>
     
-        <button  class="btn" >Add Book</button>
+        <input  class="btn" type="submit" value="Add Book" >
+        <button class="btn" onclick=closeForm2()>close</button>
       </form>
     </div>
 
@@ -52,10 +60,10 @@
                 <%= book.name %>
             </td>
             <td>
-              <%= book.categoryid %>
+              <%= book.categoryId %>
           </td>
           <td>
-            <%= book.authorid %>
+            <%= book.authorId %>
         </td>
               <td>
                     <a onclick="window.location.href = '/admin/books/<%= book._id %>/deleteBook'" value='<%= book._id%>'>delete</a>                 

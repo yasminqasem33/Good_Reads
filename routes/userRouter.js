@@ -77,6 +77,9 @@ userRouter.get('/categories', (req, res) => {
 // })
 
 
+userRouter.get('/userhome',(req,res)=>{
+    res.render('pages/userHome.ejs');
+    
 userRouter.get('/categories/:id', (req, res, next) => {
         categoryModel.findById(req.params.id).then((name) => {
             bookmodel.find({ categoryId: req.params.id }).then((record) => {
@@ -175,6 +178,7 @@ userRouter.post('/signin',(req,res)=>{
           res.redirect('/signin')       
          }              
  })
+})
 })
 })
 

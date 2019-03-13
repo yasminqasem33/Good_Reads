@@ -1,19 +1,8 @@
 <% include ../layout/headeradmin %>
 
 
-    <button  onclick="openForm1()" style=float:right>add</button>
-    <div class="form-popup" id="myForm1" style="display:none">
-
-      <form action="/admin/categories" method="POST" class="form-container">
-
-        <h1> Add Category</h1>
+    <button  onclick="window.location.href='/admin/categories/addCategories'" style=float:right>add</button>
     
-        <label for="Category"><b>Category</b></label>
-        <input type="text" placeholder="Enter Category" name="name" required>    
-        <button  class="btn" >Add Category</button>
-        <!-- <button type="button" class="btn cancel" onclick="closeForm1()">Close</button> -->
-      </form>
-    </div>
     
 
     <table style="width:100%">
@@ -36,25 +25,11 @@
 
                 
               <a onclick="window.location.href = '/admin/categories/<%= category._id %>/deleteCategory'" value='<%= category._id%>'>delete</a>                 
-              <a onclick="window.location.href = '/admin/home/<%= category._id %>/editCategory'" value='<%= category._id%>'>Edit</a>                 
-
+              <a onclick= " window.location.href = '/admin/categories/<%= category._id %>/editCategory' "value='<%= category._id%>'>Edit</a>                 
+              
             </td>
         </tr>
         <% })%>
     </table>
-<script>
-function openForm1() {
-  document.getElementById("myForm1").style.display = "block";
-}
-function openForm2() {
-  document.getElementById("myForm2").style.display = "block";
-}
-function closeForm1() {
-  document.getElementById("myForm1").style.display = "none";
-}
-function closeForm2() {
-  document.getElementById("myForm2").style.display = "none";
-}
-</script>
  
   <% include ../layout/footer %>
