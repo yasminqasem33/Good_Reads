@@ -8,13 +8,13 @@ const key = require('./config/keys');
 
 
 
-exports.local = passport.use(userModel.createStrategy());
-passport.serializeUser(userModel.serializeUser());
-passport.deserializeUser(userModel.deserializeUser());
+// exports.local = passport.use(userModel.createStrategy());
+// passport.serializeUser(userModel.serializeUser());
+// passport.deserializeUser(userModel.deserializeUser());
 
-exports.getToken = function(user) {
+exports.getToken = function(user) {   
     return jwt.sign(user,key.secretOrKey ,
-        {expiresIn: 3600});    
+        {expiresIn: 3600});   
 };
 
 var opt = {};
