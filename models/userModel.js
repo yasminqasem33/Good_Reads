@@ -10,7 +10,8 @@ const userSchema =  new mongoose.Schema(
             required: 'Email address is required',
             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
         },
-        userImage:{type: String}
+        userImage:{type: String},
+        book:{name: String, status:String, rate:String}
     }
 )
 

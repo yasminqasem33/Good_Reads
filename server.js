@@ -7,12 +7,13 @@ const userModel = require('./models/userModel')
 const ROUTER = process.env.ROUTER || 5000;
 const expressValidator = require('express-validator');
 const keys = require('./config/keys');
-const MONGO_URL = keys.mongoURI 
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const LocalStrategy = require('passport-local');
 const cors = require('cors');
 var jwt = require('jsonwebtoken');
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/goodReadDb';
+
 
 
 //required from other files
