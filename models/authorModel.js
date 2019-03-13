@@ -10,8 +10,8 @@ const authorSchema =  new mongoose.Schema(
     })
 const authorModel = mongoose.model('authorSchema',authorSchema)
 // const auther1=new authorModel({
-//     first_name:'dina',
-//     last_name:'gamal',
+//     first_name:'yasmin',
+//     last_name:'qasem',
 //     photo:'dina@com',
 //     date_birth:'12345',
     
@@ -26,6 +26,10 @@ const authorModel = mongoose.model('authorSchema',authorSchema)
 // authorModel.remove({}, function (err) {
 //          if (err) return handleError(err);
     
-//          console.log()
+//          console.log("auther deleted")
 //               })
+
+authorModel.find().then((data)=>{
+    console.log(data)
+})
 module.exports=authorModel

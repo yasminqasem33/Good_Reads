@@ -9,12 +9,10 @@ const userSchema =  new mongoose.Schema(
         email:{type:String},
         userpassword:{type:String},
         userImage:{type: String},
-<<<<<<< HEAD
-        book:[{status:String, rate:String}]
-=======
-        state:{type: String}
 
->>>>>>> e028a807d8c7ac978d886cb2555c43b7e7016469
+        book:[{name: String, status:String, rate:String}]
+        
+        
     }
 )
 

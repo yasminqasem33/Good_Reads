@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
 const adminModel = require('./models/adminModel')
 const ROUTER = process.env.ROUTER || 5000;
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/goodReadDb';
+mongoose.Promise=global.Promise
+
 
 
 //required from other files
