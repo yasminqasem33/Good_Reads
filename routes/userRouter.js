@@ -15,7 +15,7 @@ require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
 exports.local=passport.use(new LocalStrategy(userModel.authenticate()))
 userRouter.use(passport.initialize());
-const authorModel = require('../models/authorModel')
+const autherModel = require('../models/authorModel')
 
 
 //==================================================================================
@@ -67,7 +67,7 @@ userRouter.get('/categories/:id', (req, res, next) => {
         categoryModel.findById(req.params.id).then((name) => {
             bookmodel.find({ categoryId: req.params.id }).then((record) => {
                 console.log(record)
-                authorModel.find({id:record.authorId}).then((author)=>{
+                autherModel.find({id:record.authorId}).then((author)=>{
             res.render('pages/eco1.ejs',
                 {
                     name: name,
@@ -87,7 +87,7 @@ userRouter.get('/hpage/all', (req, res) => {   //this URL is just user for test.
     bookmodel.find().then((books) => {
         // res.send(books);
         books.forEach(book=>{
-            authorModel.findById(book.authorId).then(author=>{
+            autherModel.findById(book.authorId).then(author=>{
                 res.render('pages/userHome.ejs', {
                     books:books,
                     author: author.first_name+" "+author.last_name
