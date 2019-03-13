@@ -1,9 +1,7 @@
 <% include ../layout/headeradmin %>
 
 <div class="form-popup" id="myForm1" style="display:block">
-    <p>
-        hello from ejs
-    </p>
+   
     <%if(form=="add"){%>
     <form action="/admin/categories/addCategory_andsave" method="POST" class="form-container">
         <%}else if(form=="edit"){%>

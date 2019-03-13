@@ -1,0 +1,131 @@
+
+
+// // installed modules by  => npm i name_modules --save 
+// const express = require('express')
+// const mongoose = require('mongoose')
+// var formidable = require('formidable');
+// const multer = require('multer')
+// const adminModel = require('./models/adminModel')
+// const ROUTER = process.env.ROUTER || 5000;
+// const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/goodReadDb';
+
+
+// //required from other files
+// const userRouter = require('./routes/userRouter')
+// const adminRouter = require('./routes/adminRouter')
+
+
+// mongoose.connect(MONGO_URL , (err) =>
+// {
+//     if(!err)console.log("Mongo Connected! ");
+// })
+
+
+// const app = express()
+// app.set('view engine','ejs')
+// app.set('views','views')
+// app.use(express.urlencoded())
+// app.use(express.json())
+
+
+
+// app.use('/admin',adminRouter);
+// app.use('/',userRouter);
+// app.use(express.static(__dirname + '/public'));
+
+
+// var grid = require('gridfs-stream');
+// var fs = require('fs');
+// var util = require('util');
+
+// app.post('/fileupload', function (req, res) {
+//     getPath(req)
+// //     var form = new formidable.IncomingForm();
+// //     form.uploadDir = __dirname + "/public/img";
+// //     form.keepExtensions = true;
+// //     form.parse(req, function(err, fields, files) {
+// //         if (!err) {
+// //           console.log('File uploaded : ' + files.file.path);
+// //           grid.mongo = mongoose.mongo;
+// //           var conn = mongoose.createConnection('..mongo connection string..');
+// //           conn.once('open', function () {
+// //           var gfs = grid(conn.db);
+// //           var writestream = gfs.createWriteStream({
+// //               filename: files.file.name
+// //           });
+// //           fs.createReadStream(files.file.path).pipe(writestream);
+// //        });
+// //      }        
+// //    });
+// //    form.on('end', function() {        
+// //        res.send('Completed ..... go and check fs.files & fs.chunks in  mongodb');
+// //    });
+
+// });
+// function getPath(req)
+// {
+//     var form = new formidable.IncomingForm();
+//     form.uploadDir = __dirname + "/public/img";
+//     form.keepExtensions = true;
+//     form.parse(req, function(err, fields, files) {
+//         if (!err) {
+//             console.log(files.file.path)
+//           return files.file.path
+//         }})
+// }
+
+// app.get('/', function(request, response){
+//     response.render('pages/imageTest.ejs')
+      
+// });
+
+// app.listen(ROUTER,()=>
+// {
+//     console.log("Server Started!")
+
+// })
+
+
+
+
+
+
+bookModel.findOne({ name: req.body.name }, function (err, data) {
+        if (data == null) {
+            //
+
+            authorModel.findOne({ first_name: req.body.authors })
+                .then((author) => {
+                    console.log(author)
+                    categoryModel.findOne({ name: req.body.categories })
+                        .then((category) => {
+
+                            console.log(category)
+                            bookModel.create({
+                                image: { data: getPath(req), contentType :'image/png'},
+                                name: req.body.name,
+                                authorId: author._id,
+                                categoryId: category._id
+
+                            })
+                                .then((user) => {
+                                    console.log(user)
+                                    res.redirect('/admin/books')
+
+                                })
+                        })
+                }
+
+                )
+
+
+            //
+
+        }
+        else {
+            console.log("already exist")
+            //handling of existing book with same name
+
+        }
+
+    })

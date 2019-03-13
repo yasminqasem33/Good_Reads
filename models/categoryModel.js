@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const bookModel =require('../models/bookModel')
 
 const categorySchema =  new mongoose.Schema(
     {
@@ -8,6 +8,7 @@ const categorySchema =  new mongoose.Schema(
         
     }
 )
+
 const categoryModel = mongoose.model('categorySchema',categorySchema)
 // const cat1=new categoryModel({
 //  name:"economy"
