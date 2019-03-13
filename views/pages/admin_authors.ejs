@@ -1,9 +1,6 @@
 <% include ../layout/headeradmin %>
 
     
-<button  onclick="window.location.href='/admin/authors/addauthors'" style=float:right>add</button>
-
-
 
     <table style="width:100%">
       <tr>
@@ -21,13 +18,13 @@
               <%=author._id %>
           </td>
           <td>
-              <%= author.photo %>
+              <%= author.first_name %>
           </td>
           <td>
-              <%= author.first_name %>
+            <%= author.last_name %>
         </td>
         <td>
-            <%= author.last_name %>
+          <%= author.photo %>
       </td>
       <td>
         <%= author.date_birth %>
@@ -40,18 +37,3 @@
       </tr>
       <% })%>
     </table>
-
-    <script>
-      function openForm1() {
-        document.getElementById("myForm1").style.display = "block";
-      }
-      function openForm2() {
-        document.getElementById("myForm2").style.display = "block";
-      }
-      function closeForm1() {
-        document.getElementById("myForm1").style.display = "none";
-      }
-      function closeForm2() {
-        document.getElementById("myForm2").style.display = "none";
-      }
-</script>

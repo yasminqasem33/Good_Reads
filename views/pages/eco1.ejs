@@ -115,7 +115,7 @@
     
     <div class="column">
       <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-        <a href="bookid"><%=record[0].name%></a>
+        <a href="/categories/"><%=record[0].name%></a>
         <a href="bookid"><%=author[0].first_name+" "+author[0].last_name%></a>
     </div>
     <div class="column">
@@ -137,7 +137,7 @@
   <script type="text/javascript">
   function two(){
     document.getElementById("myButton2").onclick = function () {
-        location.href = "eco2";
+      window.location='/categories/<%=name.id%>/eco2';
     };
   };
 </script>

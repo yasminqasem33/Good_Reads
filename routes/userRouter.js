@@ -1,4 +1,3 @@
-
 const express = require('express')
 var expressValidator = require('express-validator');
 const userRouter = express.Router()
@@ -8,7 +7,6 @@ const userModel = require('../models/userModel')
 const categoryModel = require('../models/categoryModel')
 const bookmodel = require('../models/bookModel')
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
 const passport = require('passport');
 var authenticate = require('../authenticate');
 require('passport-jwt');
@@ -60,7 +58,24 @@ userRouter.post('/login', passport.authenticate('local'), (req, res) => {
 
 //=========================================================================================
 
+userRouter.get('/categories/:id/eco2', (req, res, next) => {
+    categoryModel.findById(req.params.id).then((name) => {
+        bookmodel.find({ categoryId: req.params.id }).then((record) => {
+            console.log(record)
+            autherModel.find({id:record.authorId}).then((author)=>{
+        res.render('pages/eco2.ejs',
+            {
+                name: name,
+                record: record,
+                author: author
+            })
+        }).catch(err=>console.log(err))
+    
+    // })
+})
+}).catch(console.log)
 
+})
 
 
 userRouter.get('/categories/:id', (req, res, next) => {
@@ -116,54 +131,8 @@ userRouter.get('/categories', (req, res) => {
 })
 
 
-// userRouter.get('/categories/:id', (req, res, next) => {
-//     categoryModel.findById(req.params.id).then((name) => {
-//     bookmodel.findOne({ categoryId: req.params.id }).then((record) => {
-//         // record.forEach(elm=>{
-//             autherModel.findById(record.authorId).then(author=>{
-//             res.render('pages/eco1.ejs',
-//                 {
-//                     name: name,
-//                     record: record,
-//                     author: author.first_name+" "+author.last_name
-//                 })
-//             //console.log(record)
-//             })
-//         })
-//         // })
-//     })
-// })
 
-    
-userRouter.get('/categories/:id', (req, res, next) => {
-        categoryModel.findById(req.params.id).then((name) => {
-            bookmodel.find({ categoryId: req.params.id }).then((record) => {
-                console.log(record)
-                autherModel.find({id:record.authorId}).then((author)=>{
-            res.render('pages/eco1.ejs',
-                {
-                    name: name,
-                    record: record,
-                    author: author
-                })
-            }).catch(err=>console.log(err))        
-    })
-}).catch(console.log)
-})
 
-// userRouter.get('/categories/:id', (req, res) => {   //this URL is just user for test. It can be changed.
-//     bookmodel.find().then((books) => {
-//         books.forEach(book=>{
-//             autherModel.findById(book.authorId).then(author=>{
-//                 res.render('pages/eco1.ejs', {
-//                     books:books,
-//                     author: author.first_name+" "+author.last_name
-//                 })
-//                 // console.log(author.first_name+" "+author.last_name);
-//             })
-//         })
-//     })
-// })
 
 
 
