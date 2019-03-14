@@ -1,0 +1,122 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="main.js"></script>
+</head>
+<body>
+      
+        <div class="topnav">
+                <a class="active">Home</a>
+
+                <button name="loginname" title="Contact" value="Contact"></button>
+                <form action="" method="POST">
+                <button name="logout" >Logout</button>
+                </form>
+                <input type="text" placeholder="Search..">
+              </div>             
+              <div class="sidenav">
+                    <a href="">All</a>
+                    <a href="/hpage/read">Read</a>
+                    <a href="">Current Reading</a>
+                    <a href="">Want to Read</a>
+                  </div>
+                 <div class="readersTable">
+                  <table>
+                        <tr>
+                          <th>Cover</th>
+                          <th>Name</th>
+                          <th>Author</th>
+                          <th>Avg Rate</th>
+                          <th>Rating</th>
+                          <th>Shelve</th>
+                        </tr>
+                        <% books.forEach((book) => { %>
+                        <tr>
+                          <td><%=book.image%></td>
+                          <td><%=book.name%></td>
+                          <td><%=author%></td>
+                          <td>
+                            <%const v = "2"%>
+                            <%if (v == "0"){%>
+                              
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <%}else if (v == "1"){%>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star "></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <%}else if (v == "2"){%>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <%}else if (v == "3"){%>
+                                  <span class="fa fa-star checked"></span>
+                                  <span class="fa fa-star checked"></span>
+                                  <span class="fa fa-star checked"></span>
+                                  <span class="fa fa-star"></span>
+                                  <span class="fa fa-star"></span>
+                                  <%}else if (v == "4"){%>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <%}else if (v == "5"){%>
+                                      <span class="fa fa-star checked"></span>
+                                      <span class="fa fa-star checked"></span>
+                                      <span class="fa fa-star checked"></span>
+                                      <span class="fa fa-star checked"></span>
+                                      <span class="fa fa-star checked"></span>
+
+                            <%}%>
+                        </td>
+                        <td>
+                            <div class="rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                  </div>     
+                    </td>
+                    <td>
+                        <div class="chooseshelves">
+                                <button class="dropbtn">Dropdown</button>
+                                <div class="dropdown-content">
+                                  <a href="#">shelve 1</a>
+                                  <a href="#">shelve 2</a>
+                                  <a href="#">shelve 3</a>
+                                </div>
+                              </div> 
+                </td>
+                      </tr>
+
+                        <% })%>
+
+                       
+                      
+                       
+                        </tr>
+                      </table>
+                    </div>
+
+
+                    
+    
+                  </body>
