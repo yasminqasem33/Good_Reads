@@ -12,7 +12,7 @@ const userSchema =  new mongoose.Schema(
         },
         password:{type: String},
         userImage:{type: String},
-        book:{name: String, status:String, rate:String}
+        book:[{name: String, status:String, rate:String}]
     }
 )
 

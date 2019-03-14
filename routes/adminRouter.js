@@ -11,26 +11,25 @@ const adminRouter = express.Router()
 adminRouter.get('/', (req, res) => {
     res.render('pages/adminsignin.ejs')
 });
-adminRouter.get('/categories', (req, res) => {
-    getCategories(res)
-})
 
 //login admin validation
 adminRouter.post('/', (req, res) => {
     if (req.body.name == "yasmin" && req.body.password == "12345") {
         res.redirect('admin/categories')
-
     }
     else {
         res.redirect('/admin')
     }
-
 
 })
 
 
 
 //=====================category routes=================
+
+adminRouter.get('/categories', (req, res) => {
+    getCategories(res)
+})
 function getCategories(res) {
     categoryModel.find()
         .then((categories) => {
@@ -49,7 +48,7 @@ adminRouter.post('/categories/addCategory_andsave', (req, res) => {
                     res.redirect('/admin/categories')
                 })
             }
-            else { res.send("Repeated Book name,Enter Back To Try Again") }
+            else { res.send("Repeated category name,Enter Back To Try Again") }
         })
 })
 
@@ -67,16 +66,24 @@ adminRouter.get('/categories/:id/deleteCategory', (req, res) => {
 })
 
 adminRouter.post('/categories/:id/editCategory_andsave', (req, res) => {
-    categoryModel.findByIdAndUpdate(req.params.id, { name: req.body.name })
-        .then((updated) => {
-            console.log("this is id" + req.params.id)
+    categoryModel.findOne({ name: req.body.name }).then((category)=>
+    {
+        if(category==null){
+            categoryModel.findByIdAndUpdate(req.params.id, { name: req.body.name })
+            .then((updated) => {
+                console.log("this is id" + req.params.id)
+    
+                console.log("this is new name" + req.body.name)
+                console.log(updated)
+                res.redirect('/admin/categories')
+            }).catch(err => {
+                res.send("id not found")
+            })
+        }            
+        else { res.send("Repeated category name,Enter Back To Try Again") }
 
-            console.log("this is new name" + req.body.name)
-            console.log(updated)
-            res.redirect('/admin/categories')
-        }).catch(err => {
-            res.send("id not found")
-        })
+    })
+
 })
 
 adminRouter.get('/categories/:id/editCategory', (req, res) => {
@@ -105,6 +112,83 @@ adminRouter.get('/categories/:id/editCategory', (req, res) => {
 
 //============================ books routes======================
 
+adminRouter.post('/books/:id/editBook_andsave', (req,res) => {
+    
+    bookModel.findOne({ name: req.body.name })
+    .then((book) => {
+        if (book == null) {
+            authorModel.findOne({ first_name: req.body.authors })
+                .then((author) => {
+                    console.log("author is "+req.body.authors)
+                    categoryModel.findOne({ name: req.body.categories })
+                        .then((category) => {
+                            console.log("book is "+req.body.categories)
+
+                            bookModel.findByIdAndUpdate(req.params.id,{
+                                image: req.body.image,
+                                name: req.body.name,
+                                authorId: author._id,
+                                categoryId: category._id
+
+                            }
+                            ).then(()=>
+                            {
+                                res.redirect('/admin/books')
+
+                            })
+                               
+
+                        })
+                })
+        }
+        else {
+            res.send("Repeated Book Name, Enter back To Try Again")
+        }
+
+
+    })
+
+})
+
+
+adminRouter.get('/books', (req, res) => {
+    bookModel.find()
+        .then((books) => {
+            res.render('pages/admin_books.ejs',
+                {
+                    books: books
+                })
+
+        })
+})
+
+
+adminRouter.get('/books/:id/editBook', (req, res) => {
+
+    bookModel.findOne({ _id: req.params.id })
+        .then((book) => {
+            authorModel.find()
+                .then((authors) => {
+                    categoryModel.find()
+                        .then((categories) => {
+                            
+                            res.render('pages/admin_formBook.ejs', {
+                                book: book,
+                                form: "edit",
+                                categories:categories,
+                                authors:authors
+
+                            })
+
+
+                        })
+
+                })
+
+        })
+
+})
+
 
 //del book
 adminRouter.get('/books/:id/deleteBook', (req, res) => {
@@ -116,46 +200,57 @@ adminRouter.get('/books/:id/deleteBook', (req, res) => {
         })
 
 })
+adminRouter.post('/books/add_save', (req, res) => {
 
-
-
-
-adminRouter.post('/books', (req, res) => {
-    bookModel.findOne({ name: req.body.name }, function (err, data) {
-        if (data == null) {
-            //
-
-            authorModel.findOne({ first_name: req.body.authors })
-                .then((author) => {
-                    console.log(author)
-                    categoryModel.findOne({ name: req.body.categories })
-                        .then((category) => {
-
-                            console.log(category)
-                            bookModel.create({
-                                image: req.body.image,
-                                name: req.body.name,
-                                authorId: author._id,
-                                categoryId: category._id
-
-                            })
-                                .then((user) => {
-                                    console.log(user)
-                                    res.redirect('/admin/books')
+    bookModel.findOne({ name: req.body.name })
+        .then((book) => {
+            console.log(book)
+            if (book == null) {
+                authorModel.findOne({ first_name: req.body.authors })
+                    .then((author) => {
+                        categoryModel.findOne({ name: req.body.categories })
+                            .then((category) => {
+                                bookModel.create({
+                                    image: req.body.image,
+                                    name: req.body.name,
+                                    authorId: author._id,
+                                    categoryId: category._id
 
                                 })
-                        })
-                }
+                                    .then(() => {
+                                        res.redirect('/admin/books')
 
-                )
-        }
-        else {
-            console.log("already exist")
-            //handling of existing book with same name
+                                    })
 
-        }
+                            })
+                    })
 
-    })
+            }
+            else {
+                res.send("Repeated Book Name, Enter back To Try Again")
+            }
+
+
+        })
+})
+
+
+
+adminRouter.get('/books/add', (req, res) => {
+    authorModel.find()
+        .then((authors) => {
+            console.log(authors)
+
+            categoryModel.find()
+                .then((categories) => {
+                    res.render('pages/admin_formBook.ejs', {
+                        categories: categories,
+                        authors: authors,
+                        form: "add"
+                    })
+
+                })
+        })
 
 })
 
@@ -164,6 +259,7 @@ adminRouter.post('/books', (req, res) => {
 adminRouter.get('/authors', (req, res) => {
     authorModel.find()
         .then((authors) => {
+            console.log(authors)
             res.render('pages/admin_authors.ejs', {
                 authors: authors
             })
@@ -171,9 +267,11 @@ adminRouter.get('/authors', (req, res) => {
 })
 
 
-adminRouter.post('/authors', (req, res) => {
-    authorModel.findOne({ name: req.body.name }, function (err, data) {
-        if (data == null) {
+adminRouter.post('/authors/addauthor_andsave', (req, res) => {
+    authorModel.findOne({ name: req.body.firstname }, function (err, data) {
+        console.log(req.body.firstname)
+        if(data == null)
+        {
             authorModel.create({
                 first_name:req.body.firstname,
                 last_name:req.body.lastname,
@@ -182,11 +280,13 @@ adminRouter.post('/authors', (req, res) => {
                 console.log(user)
                 res.redirect('/admin/authors')
             })         
-                }
-        else {
-            console.log("already exist")
-            //handling of existing book with same name
+        
         }
+        else
+        {
+            res.send("repeated")
+        }
+           
     })
 })
 //del author
@@ -206,48 +306,42 @@ function getauthors(res) {
             })
         })
 }
-adminRouter.post('/authors/addauthor_andsave', (req, res) => {
-    authorModel.findOne({ name: req.body.name })
-        .then((author) => {
-            if (author == null) {
-                authorModel.create({
-                    name: req.body.name
-                }, (author) => {
-                    res.redirect('/admin/authors')
-                })
-            }
-            else { res.send("Repeated Book name,Enter Back To Try Again") }
-        })
-})
+
+
 
 adminRouter.get('/authors/addauthors', (req, res) => {
     res.render('pages/admin_formauthor.ejs', { form: "add" })
 })
 
-adminRouter.get('/authors/:id/deleteauthor', (req, res) => {
-    categoryModel.findByIdAndDelete({ _id: req.params.id })
-        .then((deletdCategory) => {
-            console.log(deletdCategory)
-            res.redirect('/admin/authors')
 
-        })
+adminRouter.post('/authors/:id/editauthor_andsave', (req, res) => {
+    authorModel.findOne({ first_name: req.body.firstname }, function (err, data) {
+        if(data == null)
+        {
+            authorModel.findByIdAndUpdate(req.params.id, {  
+                first_name:req.body.firstname,
+                last_name:req.body.lastname,
+                date_birth:req.body.date_birth
+            })
+                .then((updated) => {
+                    console.log("this is id" + req.params.id)
+        
+                    console.log("this is new name" + req.body.firstname)
+                    console.log(updated)
+                    res.redirect('/admin/authors')
+                }).catch(err => {
+                    res.send("id not found")
+                })
+        }
+        else
+        {res.send("repeated") }
+    })
 })
 
-adminRouter.post('/authors/:id/editauthors_andsave', (req, res) => {
-    authorModel.findByIdAndUpdate(req.params.id, { name: req.body.name })
-        .then((updated) => {
-            console.log("this is id" + req.params.id)
+   
 
-            console.log("this is new name" + req.body.name)
-            console.log(updated)
-            res.redirect('/admin/authors')
-        }).catch(err => {
-            res.send("id not found")
-        })
-})
 
-adminRouter.get('/authors/:id/editauthors', (req, res) => {
-    console.log(req.params.id)
+adminRouter.get('/authors/:id/editAuthor', (req, res) => {
     authorModel.findOne(
         { _id: req.params.id })
         .then((author) => {

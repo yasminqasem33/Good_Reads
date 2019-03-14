@@ -13,7 +13,7 @@ const passportJWT = require('passport-jwt');
 const LocalStrategy = require('passport-local');
 const cors = require('cors');
 var jwt = require('jsonwebtoken');
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/goodReadDb';
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/good';
 
 
 
