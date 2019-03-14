@@ -1,6 +1,9 @@
 <% include ../layout/headeradmin %>
 
     
+<button  onclick="window.location.href='/admin/authors/addauthors'" style=float:right>add</button>
+
+
 
     <table style="width:100%">
       <tr>
@@ -18,13 +21,13 @@
               <%=author._id %>
           </td>
           <td>
-              <%= author.first_name %>
+              <%= author.photo %>
           </td>
           <td>
-            <%= author.last_name %>
+              <%= author.first_name %>
         </td>
         <td>
-          <%= author.photo %>
+            <%= author.last_name %>
       </td>
       <td>
         <%= author.date_birth %>
@@ -32,8 +35,24 @@
           <td>
               <a onclick="window.location.href = '/admin/authors/<%= author._id %>/deleteAuthor'" value='<%= author._id%>'>delete</a>                 
 
-  
+              <a onclick="window.location.href = '/admin/authors/<%= author._id %>/editAuthor'" value='<%= author._id%>'>edit</a>                 
+
           </td>
       </tr>
       <% })%>
     </table>
+
+    <script>
+      function openForm1() {
+        document.getElementById("myForm1").style.display = "block";
+      }
+      function openForm2() {
+        document.getElementById("myForm2").style.display = "block";
+      }
+      function closeForm1() {
+        document.getElementById("myForm1").style.display = "none";
+      }
+      function closeForm2() {
+        document.getElementById("myForm2").style.display = "none";
+      }
+</script>

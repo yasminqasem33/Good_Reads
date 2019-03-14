@@ -1,6 +1,5 @@
-
 const mongoose = require('mongoose')
-var passportlocalmongoose= require('passport-local-mongoose')
+//var passportlocalmongoose= require('passport-local-mongoose')
 
 const userSchema =  new mongoose.Schema(
     {
@@ -11,17 +10,16 @@ const userSchema =  new mongoose.Schema(
             required: 'Email address is required',
             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
         },
+        password:{type: String},
         userImage:{type: String},
-        book:{name: String, status:String, rate:String}
+        book:[{name: String, status:String, rate:String}]
     }
 )
 
 
 
-userSchema.plugin(passportlocalmongoose)
+//userSchema.plugin(passportlocalmongoose)
 const userModel = mongoose.model('userSchema',userSchema)
-
-
 
 
 
