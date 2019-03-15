@@ -13,25 +13,46 @@ const keys = require('../config/keys');
 const passport = require('passport');
 require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
-userRouter.use(passport.initialize());
 const autherModel = require('../models/authorModel')
 const cookieParser = require('cookie-parser')
+
+
+//=================middleware=======================
+userRouter.use(passport.initialize());
 userRouter.use(cookieParser());
+userRouter.use(function(req,res,next)
+{
+   // var token =req.body.token || req.query.token || req.headers['x-access-token'];
+   const token= req.cookies.userData.token 
+  //var token = req.headers['x-access-token'] || req.cookies.userData.token
+    if (token){
+        jwt.verify(token,keys.secretOrKey,function(err,decoded){
+            if (err){
+              //  res.clearCookie('userData')
+                res.redirect('/')
+
+            }
+            req.decoded=decoded;
+            next();
+        })
+    }
+    else{
+        res.redirect('/')
+    }
+})
 
 
-
-//==================================================================================
+//==========================login and signup user===============================================
 userRouter.get('/', (req, res) => {
      res.render("pages/usersignup.ejs")
 })
-userRouter.post('/', (req, res) => {
 
+userRouter.post('/', (req, res) => {
     req.checkBody('FirstName', 'First name must be specified.').notEmpty();
     req.checkBody('LastName', 'Last name must be specified.').notEmpty();
     req.checkBody('psw', 'Password must be specified.').notEmpty();
     req.checkBody('email', 'email must be specified.').notEmpty();
     req.checkBody('email', 'email must be valied email.').isEmail();
-
     const errors = req.validationErrors(req);
     if (errors) {
         console.log("error in sign up page ")
@@ -86,11 +107,9 @@ userRouter.get('/login', (req, res) => {
 userRouter.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.pass;
-
     req.checkBody('email', 'Email is required !').notEmpty();
     req.checkBody('email', 'Email is incorrect !').isEmail();
     req.checkBody('pass', 'Password is required !').notEmpty();
-
     const errors = req.validationErrors(req);
     if (errors) {
         console.log("error in Login ");
@@ -113,7 +132,7 @@ userRouter.post('/login', (req, res) => {
                                     userImage: user.userImage
                                 };
 
-                                jwt.sign(payload, keys.secretOrKey, { expiresIn: 36 }, (err, token) => {
+                                jwt.sign(payload, keys.secretOrKey, { expiresIn: 360 }, (err, token) => {
                                     if (!err) {
                                  //     console.log(token)
                                     
@@ -143,35 +162,13 @@ userRouter.post('/login', (req, res) => {
             });
     }
 });
-
-
-
-userRouter.use(function(req,res,next)
-{
-   // var token =req.body.token || req.query.token || req.headers['x-access-token'];
-   const token= req.cookies.userData.token 
-  //var token = req.headers['x-access-token'] || req.cookies.userData.token
-    if (token){
-        jwt.verify(token,keys.secretOrKey,function(err,decoded){
-            if (err){
-              //  res.clearCookie('userData')
-                res.redirect('/')
-
-            }
-            req.decoded=decoded;
-            next();
-        })
-    }
-    else{
-        res.redirect('/')
-    }
-})
-    
+   
 
     //Iterate users data from cookie 
     userRouter.get('/getuser', (req, res,next)=>{  
-     
-      res.redirect('/categories')
+        const id= req.cookies.userData.userdata._id
+        console.log(id)
+      res.redirect('/homepage')
   // jwt.verify(token,keys.secretOrKey,function(err,decoded){
   //  req.decoded=decoded
     //    res.redirect('/')
@@ -183,8 +180,29 @@ userRouter.use(function(req,res,next)
     //shows all the cookies 
     });
 
-   
-//=========================================================================================
+    userRouter.get('/logout', (req, res,next)=>{  
+               res.clearCookie('userData')
+              res.redirect('/login')
+    })
+
+
+
+    userRouter.get('/homepage', (req, res) => {   //this URL is just user for test. It can be changed.
+        bookmodel.find().then((books) => {
+            // res.send(books);
+            books.forEach(book=>{
+                autherModel.findById(book.authorId).then(author=>{
+                    res.render('pages/userread.ejs', {
+                        books:books,
+                        author: author.first_name+" "+author.last_name
+                    })
+                    // console.log(author.first_name+" "+author.last_name);
+                })
+            })
+        })
+    })
+    
+//====================================categories================================================
 
 
 userRouter.get('/categories/:id/eco2', (req, res, next) => {
@@ -223,24 +241,26 @@ userRouter.get('/categories/:id/eco3', (req, res, next) => {
 
 
 
-
-
-
-
-userRouter.get('/hpage/all', (req, res) => {   //this URL is just user for test. It can be changed.
-    bookmodel.find().then((books) => {
-        // res.send(books);
-        books.forEach(book=>{
-            autherModel.findById(book.authorId).then(author=>{
-                res.render('pages/userHome.ejs', {
-                    books:books,
-                    author: author.first_name+" "+author.last_name
+userRouter.get('/categories/:id', (req, res, next) => {
+        categoryModel.findById(req.params.id).then((name) => {
+            bookmodel.find({ categoryId: req.params.id }).then((record) => {
+                console.log(record)
+                autherModel.find({id:record.authorId}).then((author)=>{
+            res.render('pages/eco1.ejs',
+                {
+                    name: name,
+                    record: record,
+                    author: author
                 })
-                // console.log(author.first_name+" "+author.last_name);
-            })
-        })
+            }).catch(err=>console.log(err))
+        
+        // })
     })
+}).catch(console.log)
+
 })
+
+
 
 
 
@@ -255,12 +275,39 @@ userRouter.get('/categories', (req, res) => {
         })
 })
 
+//=================================books===========================
 
+userRouter.get('/books', (req, res) => {
 
-
-userRouter.get('/hpage/read', (req, res) =>{
-    res.render('pages/userread.ejs')
+    bookmodel.find()
+        .then((books) => {
+            res.render('pages/userbooks.ejs',
+                {
+                    books: books
+                })
+        })
 })
+
+
+
+
+//===========================authors==================================
+userRouter.get('/authors', (req, res) => {
+    autherModel.find()
+        .then((authors) => {
+            res.render('pages/userauthors.ejs',
+                {
+                    authors: authors
+                })
+        })
+})
+
+
+
+
+
+
+
 
 
 module.exports = userRouter

@@ -9,18 +9,23 @@
 </head>
 <body>
       
-        <div class="topnav">
-                <a class="active">Read</a>
-
+        <div class="topnav"> 
+               <a class="active">Home</a>
+               <a href="/categories">Categories</a>
+               <a href="/books">Books</a>
+               <a href="/authors">Authors</a>
                 <button name="loginname" title="Contact" value="Contact"></button>
-                <form action="/signin/:id/userhome/logout" method="POST">
+                <form action="/logout" method="GET">
+                  <h3>
+                    
+                  </h3>
                 <button name="logout" >Logout</button>
                 </form>
                 <input type="text" placeholder="Search..">
               </div>             
               <div class="sidenav">
-                    <a href="/hpage/all">All</a>
-                    <a href="/hpage/read">Read</a>
+                    <a href="/homepage">All</a>
+                    <a href="/homepage">Read</a>
                     <a href="">Current Reading</a>
                     <a href="">Want to Read</a>
                   </div>
@@ -32,7 +37,7 @@
                           <th>Author</th>
                           <th>Avg Rate</th>
                           <th>Rating</th>
-                          <th>Shelve</th>
+                          <!-- <th>Shelve</th> -->
                         </tr>
                         <% books.forEach((book) => { %>
                         <tr>
@@ -95,7 +100,7 @@
                                     <label for="star1" title="text">1 star</label>
                                   </div>     
                     </td>
-                    <td>
+                    <!-- <td>
                         <div class="chooseshelves">
                                 <button class="dropbtn">Dropdown</button>
                                 <div class="dropdown-content">
@@ -104,7 +109,7 @@
                                   <a href="#">shelve 3</a>
                                 </div>
                               </div> 
-                </td>
+                </td> -->
                       </tr>
 
                         <% })%>
