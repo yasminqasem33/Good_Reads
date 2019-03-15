@@ -11,40 +11,19 @@ const bookmodel = require('../models/bookModel')
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 const passport = require('passport');
+const cookieParser = require('cookie-parser')
+userRouter.use(cookieParser());
 require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
 const autherModel = require('../models/authorModel')
-const cookieParser = require('cookie-parser')
 
 
-//=================middleware=======================
-userRouter.use(passport.initialize());
-userRouter.use(cookieParser());
-userRouter.use(function(req,res,next)
-{
-   // var token =req.body.token || req.query.token || req.headers['x-access-token'];
-   const token= req.cookies.userData.token 
-  //var token = req.headers['x-access-token'] || req.cookies.userData.token
-    if (token){
-        jwt.verify(token,keys.secretOrKey,function(err,decoded){
-            if (err){
-              //  res.clearCookie('userData')
-                res.redirect('/')
-
-            }
-            req.decoded=decoded;
-            next();
-        })
-    }
-    else{
-        res.redirect('/')
-    }
-})
 
 
 //==========================login and signup user===============================================
 userRouter.get('/', (req, res) => {
      res.render("pages/usersignup.ejs")
+    
 })
 
 userRouter.post('/', (req, res) => {
@@ -132,7 +111,7 @@ userRouter.post('/login', (req, res) => {
                                     userImage: user.userImage
                                 };
 
-                                jwt.sign(payload, keys.secretOrKey, { expiresIn: 360 }, (err, token) => {
+                                jwt.sign(payload, keys.secretOrKey, { expiresIn: 10 }, (err, token) => {
                                     if (!err) {
                                  //     console.log(token)
                                     
@@ -142,7 +121,7 @@ userRouter.post('/login', (req, res) => {
                                     token: toke
                                 }
                               res.cookie("userData", auth); 
-                                  res.redirect('/getuser')
+                                  res.redirect('/homepage')
                                 
                                 // res.json({
                                 //     success: true,
@@ -163,23 +142,34 @@ userRouter.post('/login', (req, res) => {
     }
 });
    
+userRouter.use(function(req,res,next)
+{
+   // var token =req.body.token || req.query.token || req.headers['x-access-token'];
+  //var token = req.headers['x-access-token'] || req.cookies.userData.token
+    if (req.cookies.userData.token){
+        const token= req.cookies.userData.token
+        jwt.verify(token,keys.secretOrKey,function(err,decoded){
+            if (err){
+              //  res.clearCookie('userData')
+                res.redirect('/')
 
-    //Iterate users data from cookie 
-    userRouter.get('/getuser', (req, res,next)=>{  
-        const id= req.cookies.userData.userdata._id
-        console.log(id)
-      res.redirect('/homepage')
-  // jwt.verify(token,keys.secretOrKey,function(err,decoded){
-  //  req.decoded=decoded
-    //    res.redirect('/')
-  //  if(err)
-  //  {
-  
- //   }
-  //      })
-    //shows all the cookies 
-    });
+            }
+            else if(decoded)
+            {
+                res.decoded=decoded;
+             next();
+              //   res.redirect('/getuser')
+            }
+    
 
+        })
+    }
+    else{
+        res.redirect('/')
+    }
+    
+})
+   
     userRouter.get('/logout', (req, res,next)=>{  
                res.clearCookie('userData')
               res.redirect('/login')
@@ -202,6 +192,9 @@ userRouter.post('/login', (req, res) => {
         })
     })
     
+
+
+
 //====================================categories================================================
 
 
