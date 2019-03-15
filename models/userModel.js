@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose')
 //var passportlocalmongoose= require('passport-local-mongoose')
 
@@ -13,15 +12,20 @@ const userSchema =  new mongoose.Schema(
         },
         password:{type: String},
         userImage:{type: String},
+<<<<<<< HEAD
         book:[{bookId:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"bookModel"
         }, status:String, rate:String}]
+=======
+        book:[{name: String, status:String, rate:String}]
+>>>>>>> 4058a7b3c8ca7d2e469894332bb7639fa1a0cd77
     }
 )
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -29,6 +33,15 @@ const userSchema =  new mongoose.Schema(
 
 //userSchema.plugin(passportlocalmongoose)
 const userModel = mongoose.model('userSchema',userSchema)
+=======
+//userSchema.plugin(passportlocalmongoose)
+const userModel = mongoose.model('userSchema',userSchema)
+
+
+
+
+ module.exports= userModel
+>>>>>>> 4058a7b3c8ca7d2e469894332bb7639fa1a0cd77
 
 // userModel.remove({}, function (err) {
 //     if (err) return handleError(err);

@@ -1,9 +1,14 @@
 <head>
+<<<<<<< HEAD
   <link href="/css/main.css" rel="stylesheet" type="text/css">
+=======
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+>>>>>>> cb0729197466e7ca0421a955188702e4b32a4de0
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .vertical-menu {
+<<<<<<< HEAD
 float: left;
 width: 200px;
 }
@@ -20,11 +25,33 @@ background-color: #ccc;
 .vertical-menu a.active {
 background-color: #2196F3;
 color: white;
+=======
+  float: left;
+  width: 200px;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #2196F3;
+  color: white;
+>>>>>>> cb0729197466e7ca0421a955188702e4b32a4de0
 }
 </style>
 </head>
 <body>
 
+<<<<<<< HEAD
 <div class="topnav">
   <a class="active" href="/">Home</a>
   <a href="/categories">Categories</a>
@@ -86,10 +113,74 @@ body {
   color: white;
 }
 
+=======
+  <div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <button type="submit">Logout</button>
+    <input type="text" placeholder="Search..">
+  </div> 
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .header {
+    text-align: center;
+    padding: 32px;
+  }
+  
+  .row {
+    display: -ms-flexbox; /* IE 10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE 10 */
+    
+    padding: 0 4px;
+  }
+  
+  /* Create two equal columns that sits next to each other */
+  .column {
+    -ms-flex: 50%; /* IE 10 */
+    flex: 25%;
+    padding: 0 4px;
+  }
+  
+  .column img {
+    margin-top: 8px;
+    vertical-align: middle;
+  }
+  
+  /* Style the buttons */
+  .btn {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .btn:hover {
+    background-color: #ddd;
+  }
+  
+  .btn.active {
+    background-color: #666;
+    color: white;
+  }
+  
+>>>>>>> cb0729197466e7ca0421a955188702e4b32a4de0
 .img{ float:left; width:25%; text-align:center;}
 .img img{ width:25%;}
 .img a{ display:block;}
 .bck{
+<<<<<<< HEAD
 float:right;
 background-color: #2196F3;
 }
@@ -117,24 +208,24 @@ background-color: #2196F3;
   </div>
   <div class="column">
     <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-      <a href=""><%=record[1].name%></a>
-      <a href=""><%=author[1].first_name+" "+author[1].last_name%></a>
+      <a href=""><%=record[0].name%></a>
+      <a href=""><%=author[0].first_name+" "+author[0].last_name%></a>
   </div>
   <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-    <a href=""><%=record[2].name%></a>
-      <a href=""><%=author[2].first_name+" "+author[2].last_name%></a>
+    <a href=""><%=record[0].name%></a>
+      <a href=""><%=author[0].first_name+" "+author[0].last_name%></a>
 </div>
 <div class="column">
   <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-    <a href=""><%=record[3].name%></a>
-      <a href=""><%=author[3].first_name+" "+author[3].last_name%></a>
+    <a href=""><%=record[0].name%></a>
+      <a href=""><%=author[0].first_name+" "+author[0].last_name%></a>
 </div>
 </div>
 
 <script type="text/javascript">
   function one(){
     document.getElementById("myButton1").onclick = function () {
-        location.href = "eco1";
+      window.location = '/categories/<%=name.id%>'
     };
   };
 </script>
@@ -143,14 +234,75 @@ background-color: #2196F3;
 <script type="text/javascript">
   function three(){
     document.getElementById("myButton3").onclick = function () {
+      window.location = '/categories/<%=name.id%>/eco3'
+=======
+  float:right;
+  background-color: #2196F3;
+}
+  </style>
+  </head>
+  <body>
+  
+  <!-- Header -->
+  <button class="bck" onclick="back()" id="bckbtn">back</button>
+  <div class="header" id="myHeader">
+    <h1><%= name.name %></h1>
+    <button id = myButton1 class="btn active" onclick="one()">1</button>
+    <button id = myButton2 class="btn" onclick="two()">2</button>
+    <button id = myButton3 class="btn" onclick="three()">3</button>
+  </div>
+  
+  <!-- Photo Grid -->
+  <div class="row"> 
+  
+    
+    <div class="column">
+      <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
+        <a href="bookid"><%=record[4].name%></a>
+        <a href="bookid"><%=author[4].first_name+" "+author[0].last_name%></a>
+    </div>
+    <div class="column">
+      <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
+        <a href="bookid"><%=record[5].name%></a>
+        <a href="bookid"><%=author[5].first_name+" "+author[1].last_name%></a>
+    </div>
+    <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
+      <a href="bookid"><%=record[6].name%></a>
+        <a href="bookid"><%=author[6].first_name+" "+author[2].last_name%></a>
+  </div>
+  <div class="column">
+    <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
+      <a href="bookid"><%=record[7].name%></a>
+        <a href="bookid"><%=author[7].first_name+" "+author[3].last_name%></a>
+  </div>
+  </div>
+
+  <script type="text/javascript">
+  function two(){
+    document.getElementById("myButton2").onclick = function () {
+        location.href = "eco2";
+    };
+  };
+</script>
+<script type="text/javascript">
+  function three(){
+    document.getElementById("myButton3").onclick = function () {
         location.href = "eco3";
+>>>>>>> cb0729197466e7ca0421a955188702e4b32a4de0
     };
   };
 </script>
 <script type="text/javascript">
   function back(){
     document.getElementById("bckbtn").onclick = function () {
+<<<<<<< HEAD
         window.location = "/user/categories";
     };
   };
 </script>
+=======
+        window.location = "/categories";
+    };
+  };
+</script>
+>>>>>>> cb0729197466e7ca0421a955188702e4b32a4de0

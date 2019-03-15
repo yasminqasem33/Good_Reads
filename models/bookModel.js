@@ -1,12 +1,10 @@
 const mongoose = require('mongoose')
-const categoryModel =require('../models/categoryModel')
-const authorModel = require('../models/authorModel')
+
 
 
 const bookSchema =  new mongoose.Schema(
     {
-        image:{ data: Buffer, contentType: String },
-        image:{type:String},
+        image:{type: String},
         name:{type:String},
         avgrate:{type:String},
         categoryId:{
@@ -21,8 +19,11 @@ const bookSchema =  new mongoose.Schema(
         
     }
 )
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4058a7b3c8ca7d2e469894332bb7639fa1a0cd77
 const bookModel = mongoose.model('bookSchema',bookSchema)
 
 // const book1=new bookModel({
