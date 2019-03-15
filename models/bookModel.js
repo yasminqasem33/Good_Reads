@@ -19,6 +19,11 @@ const bookSchema =  new mongoose.Schema(
         
     }
 )
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 4058a7b3c8ca7d2e469894332bb7639fa1a0cd77
 const bookModel = mongoose.model('bookSchema',bookSchema)
 
 // const book1=new bookModel({

@@ -15,8 +15,15 @@ const cookieParser = require('cookie-parser')
 userRouter.use(cookieParser());
 require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
+userRouter.use(passport.initialize());
+const cookieParser = require('cookie-parser')
+userRouter.use(cookieParser());
 const autherModel = require('../models/authorModel')
 
+
+//=================middleware=======================
+userRouter.use(passport.initialize());
+userRouter.use(cookieParser());
 
 
 
@@ -79,7 +86,7 @@ userRouter.post('/', (req, res) => {
 
     
 userRouter.get('/login', (req, res) => {
-    res.render('pages/login.ejs')
+   res.render('pages/login.ejs')
 })
 
 
@@ -196,6 +203,7 @@ userRouter.use(function(req,res,next)
 
 
 //====================================categories================================================
+
 
 
 userRouter.get('/categories/:id/eco2', (req, res, next) => {
