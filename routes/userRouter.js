@@ -281,4 +281,4 @@ userRouter.get('/hpage/read', (req, res) =>{
 
 
 
-module.exports = userRouterd
+module.exports = userRouter
