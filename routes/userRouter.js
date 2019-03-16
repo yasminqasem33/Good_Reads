@@ -235,7 +235,7 @@ userRouter.get('/categories/:id/eco3', (req, res, next) => {
 
 
 
-userRouter.get('/categories/:id', (req, res, next) => {
+userRouter.get('/categories/:id/eco1', (req, res, next) => {
         categoryModel.findById(req.params.id).then((name) => {
             bookmodel.find({ categoryId: req.params.id }).then((record) => {
                 console.log(record)
@@ -267,7 +267,6 @@ userRouter.get('/categories', (req, res) => {
 //=================================books===========================
 
 userRouter.get('/books', (req, res) => {
-
     bookmodel.find()
         .then((books) => {
             res.render('pages/userbooks.ejs',
@@ -278,15 +277,19 @@ userRouter.get('/books', (req, res) => {
 })
 
 userRouter.get('/book/:id', (req, res) => {
-    console.log(req.params.bookid)
-    bookmodel.findById(req.params.bookid).then((name) => {
-        console.log(name)
-        res.render('pages/bookid.ejs',
-             {name : name}
-        )  
-    })
+    // console.log(req.params.bookid)
+    bookmodel.findById(req.params.id).then((book) => {
+        categoryModel.findById(book.categoryId).then((category)=>{
+         autherModel.findById(book.authorId).then((author)=>{
+            res.render('pages/bookid.ejs',
+            {    book : book,
+                category : category,
+                author : author
+           })  
+         })
+        })
+    }).catch(err=>console.log(err))
 })
-
 
 
 

@@ -11,27 +11,8 @@ const adminSchema =  new mongoose.Schema(
 )
 
 
-// var getSHA1ofJSON = function(input){
-//     return crypto.createHash('sha1').update(JSON.stringify(input)).digest('hex')
-// }
-
 
 const adminModel = mongoose.model('adminSchema',adminSchema)
-
-// adminModel.create(
-//     {
-//     name:"yasmin"
-//     ,
-//     password:"12345"}
-// )
-    
-    // adminModel.find().then((data)=>{
-    //     console.log(data)
-    // })
-   
-    
-
-
 
 
 

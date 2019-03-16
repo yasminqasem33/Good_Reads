@@ -98,7 +98,6 @@
   <body>
   
   <!-- Header -->
-  <button class="bck" onclick="back()" id="bckbtn">back</button>
   <div class="header" id="myHeader">
     <h1><%= name.name %></h1>
     <button id = myButton1 class="btn" onclick="one()">1</button>
@@ -134,7 +133,7 @@
   <script type="text/javascript">
     function one(){
       document.getElementById("myButton1").onclick = function () {
-        window.location = '/categories/<%=name.id%>'
+        window.location = '/categories/<%=name.id%>/eco1'
       };
     };
   </script>
@@ -144,13 +143,6 @@
     function two(){
       document.getElementById("myButton3").onclick = function () {
         window.location = '/categories/<%=name.id%>/eco2' 
-      };
-    };
-  </script>
-  <script type="text/javascript">
-    function back(){
-      document.getElementById("bckbtn").onclick = function () {
-          window.location = "/categories";
       };
     };
   </script>

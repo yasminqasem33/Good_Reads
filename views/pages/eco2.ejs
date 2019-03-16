@@ -1,6 +1,5 @@
 <head>
     <link href="/css/main.css" rel="stylesheet" type="text/css">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .vertical-menu {
@@ -101,7 +100,6 @@ background-color: #2196F3;
 <body>
 
 <!-- Header -->
-<button class="bck" onclick="back()" id="bckbtn">back</button>
 <div class="header" id="myHeader">
   <h1>Economics</h1>
   <button id = myButton1 class="btn" onclick="one()">1</button>
@@ -137,7 +135,7 @@ background-color: #2196F3;
 <script type="text/javascript">
   function one(){
     document.getElementById("myButton1").onclick = function () {
-      window.location = '/categories/<%=name.id%>'
+      window.location = '/categories/<%=name.id%>/eco1'
     };
   };
 </script>
@@ -150,10 +148,4 @@ background-color: #2196F3;
     };
   };
 </script>
-<script type="text/javascript">
-  function back(){
-    document.getElementById("bckbtn").onclick = function () {
-        window.location = "/categories";
-    };
-  };
-</script>
+
