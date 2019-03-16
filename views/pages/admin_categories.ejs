@@ -1,0 +1,36 @@
+<% include ../layout/headeradmin %>
+
+<a onclick="window.location.href = '/admin/logout'" >Logout</a>                 
+
+    <button  onclick="window.location.href='/admin/categories/addCategories'" style=float:right>add</button>
+    
+    
+
+    <table style="width:100% ;border: black;border-width: 4px">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+      <% categories.forEach((category) => { %>
+        <tr>
+            <td>
+                <%=category._id %>
+            </td>
+            <td>
+                <%= category.name %>
+            </td>
+            <td>
+                
+              
+
+                
+              <a onclick="window.location.href = '/admin/categories/<%= category._id %>/deleteCategory'" value='<%= category._id%>'>delete</a>                 
+              <a onclick= " window.location.href = '/admin/categories/<%= category._id %>/editCategory' "value='<%= category._id%>'>Edit</a>                 
+              
+            </td>
+        </tr>
+        <% })%>
+    </table>
+ 
+  <% include ../layout/footer %>

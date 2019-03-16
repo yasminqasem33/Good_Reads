@@ -1,54 +1,55 @@
 <head>
-    <link href="/css/main.css" rel="stylesheet" type="text/css">
+  <link href="/css/main.css" rel="stylesheet" type="text/css">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+  .menu{
+    margin-left: 80px;
+  }
 .vertical-menu {
-  float: left;
-  width: 200px;
+float: left;
+width: 200px;
 }
-
 .vertical-menu a {
-  background-color: #eee;
-  color: black;
-  display: block;
-  padding: 12px;
-  text-decoration: none;
+background-color: #eee;
+color: black;
+display: block;
+padding: 12px;
+text-decoration: none;
 }
-
 .vertical-menu a:hover {
-  background-color: #ccc;
+background-color: #ccc;
 }
-
 .vertical-menu a.active {
-  background-color: #2196F3;
-  color: white;
+background-color: #2196F3;
+color: white;
 }
 </style>
 </head>
 <body>
 
-  <div class="topnav">
-    <a class="active" href='/'>Home</a>
-    <a href="/categories">Categories</a>
-    <a href="/hpage/all">Books</a>
-    <button type="submit">Logout</button>
-    <input type="text" placeholder="Search..">
-  </div> 
+<div class="topnav">
+  <a class="active" href='/homepage'>Home</a>
+  <a href="/categories">Categories</a>
+  <a href="/books">Books</a>
+  <a href="/authors">Authors</a>
+  <button onclick="window.location.href='/logout'" type="submit">Logout</button>
+  <input type="text" placeholder="Search..">
+</div> 
 
-<div display: inline>
-  <div class="vertical-menu">
-    <a class="active">categories</a>
-    <% categories.forEach((category) => { %>
-      <a onclick="window.location.href='/categories/<%=category._id%>/eco3'">
-        <%=category.name %></a>
-    <% })%>
-    <!-- <a href="/user/categories/sprt1">Sports</a>
-    <a href="/user/categories/scty1">society</a>
-    <a href="/user/categories/art1">Art</a>
-    <a href="/user/categories/hror1">Horror</a> -->
+<div class="menu" display: inline>
+<div class="vertical-menu">
+  <a class="active">categories</a>
+  <% categories.forEach((category) => { %>
+    <a onclick="window.location.href='/categories/<%=category._id%>/eco3'">
+      <%=category.name %></a>
+  <% })%>
+  <!-- <a href="/user/categories/sprt1">Sports</a>
+  <a href="/user/categories/scty1">society</a>
+  <a href="/user/categories/art1">Art</a>
+  <a href="/user/categories/hror1">Horror</a> -->
 
-  </div>
+</div>
 </div>
 
 </body>

@@ -11,10 +11,10 @@
 <body>
       
         <div class="topnav">
-                <a class="active" href="/user/books/userHome">Home</a>
+                <a class="active" href="/homepage">Home</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
-                <button type="submit">Logout</button>
+                <button onclick="window.location.href='/logout'" type="submit">Logout</button>
                 <input type="text" placeholder="Search..">
               </div> 
             
@@ -24,7 +24,7 @@
                     <img src="https://s25031.pcdn.co/wp-content/uploads/2015/03/must-read-html-css-books.jpg" alt="img"/>
                 </div>
                 <div style="display:inline-block;margin-top: 30px;margin-left: 20px;">
-                    <div><h1>Book Name</h1></div>
+                    <div><h1><%=name.name%></h1></div>
                     <div style="padding-top: 10px;font-size: 20px"><a href="#">by BookAuthor</a></div>
                     <div style="padding-top: 10px;font-size: 20px"><a href="#">Category Name</a></div>
                     <div style="padding-top: 10px;">
@@ -39,12 +39,7 @@
                     
                 </div>
                 <div style="margin-left: 30px;">
-                <select>
-                    <option value=" want to read ">Want To Read</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                  </select>
+                    <button value=" want to read ">Want To Read</button>
                   </div>
                  <div style="margin-left:30px">
                     <div class="rate">

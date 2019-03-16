@@ -1,35 +1,38 @@
 <head>
-  <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .vertical-menu {
-float: left;
-width: 200px;
+  float: left;
+  width: 200px;
 }
+
 .vertical-menu a {
-background-color: #eee;
-color: black;
-display: block;
-padding: 12px;
-text-decoration: none;
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
 }
+
 .vertical-menu a:hover {
-background-color: #ccc;
+  background-color: #ccc;
 }
+
 .vertical-menu a.active {
-background-color: #2196F3;
-color: white;
+  background-color: #2196F3;
+  color: white;
 }
 </style>
 </head>
 <body>
 
 <div class="topnav">
-  <a class="active" href="/">Home</a>
-  <a href="/categories">Categories</a>
-  <a href="/hpage/all">Books</a>
-  <button type="submit">Logout</button>
+  <a class="active" href="/homepage">Home</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <button onclick="window.location.href='/logout'" type="submit">Logout</button>
   <input type="text" placeholder="Search..">
 </div> 
 <style>
@@ -112,21 +115,21 @@ background-color: #2196F3;
   
   <div class="column">
     <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-      <a href=""><%=record[0].name%></a>
+      <a onclick="window.location.href='/book/<%=record[0].id%>'"><%=record[0].name%></a>
       <a href=""><%=author[0].first_name+" "+author[0].last_name%></a>
   </div>
   <div class="column">
     <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-      <a href=""><%=record[0].name%></a>
+      <a onclick="window.location.href='/book/<%=record[0].id%>'"><%=record[0].name%></a>
       <a href=""><%=author[0].first_name+" "+author[0].last_name%></a>
   </div>
   <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-    <a href=""><%=record[0].name%></a>
+    <a onclick="window.location.href='/categories/<%=name.id%>/<%=record[0].id%>'"><%=record[0].name%></a>
       <a href=""><%=author[0].first_name+" "+author[0].last_name%></a>
 </div>
 <div class="column">
   <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-    <a href=""><%=record[0].name%></a>
+    <a onclick="window.location.href='/categories/<%=name.id%>/<%=record[0].id%>'"><%=record[0].name%></a>
       <a href=""><%=author[0].first_name+" "+author[0].last_name%></a>
 </div>
 </div>
@@ -150,7 +153,7 @@ background-color: #2196F3;
 <script type="text/javascript">
   function back(){
     document.getElementById("bckbtn").onclick = function () {
-        window.location = "/user/categories";
+        window.location = "/categories";
     };
   };
 </script>

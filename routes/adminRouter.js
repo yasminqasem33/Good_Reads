@@ -3,16 +3,19 @@ const categoryModel = require('../models/categoryModel')
 const authorModel = require('../models/authorModel')
 const bookModel = require('../models/bookModel')
 const url = require('url');
-
-
-
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
+const bcrypt=require('bcrypt')
+const cookieParser = require('cookie-parser')
+var expressValidator = require('express-validator');
 const adminRouter = express.Router()
+adminRouter.use(expressValidator())
+adminRouter.use(cookieParser());
 
 adminRouter.get('/', (req, res) => {
     res.render('pages/adminsignin.ejs')
 });
 
-//login admin validation
 adminRouter.post('/', (req, res) => {
     if (req.body.name == "yasmin" && req.body.password == "12345") {
         res.redirect('admin/categories')
@@ -23,7 +26,52 @@ adminRouter.post('/', (req, res) => {
 
 })
 
+// adminRouter.post('/', (req, res) => {
+//     const name = req.body.name;
+//     const password = req.body.password;    
+// let user ={
+//     name:name,
+//     password:password
+// }
+//     jwt.sign(user, keys.secretOrKey, { expiresIn: 100 }, (err, token) => {
+//         if (!err) {
+//             res.cookie("tok", token); 
+//             console.log(res.cookies.tok)
+//             res.redirect('/admin/categories')
+//         } else {
+//             console.log("not admin")
+//             res.json({ err: err });
+//         }
+// });
+// })
 
+
+
+// adminRouter.use(function(req,res,next)
+// {
+//     console.log("this is middleware")
+//     if(!req.cookies.tok ){
+//     res.redirect('/admin')
+//   }  
+//   else if (req.cookies.token ){
+//         jwt.verify(tok,keys.secretOrKey,function(err,decoded){
+//             if (err){
+//                 res.redirect('/admin')
+//             }
+//            // req.decoded=decoded;
+//         next();
+//         })
+//     }
+//     else{
+//         res.redirect('/admin')
+//     }
+// })
+
+
+adminRouter.get('/logout', (req, res,next)=>{  
+    res.clearCookie('token')
+   res.redirect('/admin')
+})
 
 //=====================category routes=================
 

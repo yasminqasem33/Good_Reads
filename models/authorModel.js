@@ -29,7 +29,7 @@ const authorModel = mongoose.model('authorSchema',authorSchema)
 //          console.log("auther deleted")
 //               })
 
-// authorModel.find().then((data)=>{
-//     console.log(data)
-// })
+authorModel.find().then((data)=>{
+    console.log(data)
+})
 module.exports=authorModel

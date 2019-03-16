@@ -28,12 +28,11 @@
 </head>
 <body>
 
-  <div class="topnav">
-    <a class="active" href="/">Home</a>
-    <a href="/categories">Categories</a>
-    <a href="/hpage/all">Books</a>
-    <button type="submit">Logout</button>
-    <input type="text" placeholder="Search..">
+  <a class="active" href="/homepage">Home</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <button onclick="window.location.href='/logout'" type="submit">Logout</button>
+  <input type="text" placeholder="Search..">
   </div> 
 <style>
   * {
@@ -115,22 +114,22 @@
     
     <div class="column">
       <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-        <a href=""><%=record[0].name%></a>
+        <a onclick="window.location.href='/categories/<%=name.id%>/<%=record[0].id%>'"><%=record[0].name%></a>
         <a href="bookid"><%=author[0].first_name+" "+author[0].last_name%></a>
     </div>
     <div class="column">
       <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-        <a href="bookid"><%=record[0].name%></a>
-        <a href="bookid"><%=author[0].first_name+" "+author[0].last_name%></a>
+        <a onclick="window.location.href='/categories/<%=name.id%>/<%=record[0].id%>'"><%=record[1].name%></a>
+        <a href="bookid"><%=author[1].first_name+" "+author[1].last_name%></a>
     </div>
     <div class="img"> <img src="https://dummyimage.com/400/ff0/000a96&text=Dummy+Image" id="elder" />
-      <a href="bookid"><%=record[0].name%></a>
-        <a href="bookid"><%=author[0].first_name+" "+author[0].last_name%></a>
+      <a onclick="window.location.href='/categories/<%=name.id%>/<%=record[0].id%>'"><%=record[2].name%></a>
+        <a href="bookid"><%=author[2].first_name+" "+author[2].last_name%></a>
   </div>
   <div class="column">
     <div class="img"> <img src="https://dummyimage.com/400/0f0/000a96&text=Dummy+Image" id="saac" />
-      <a href="bookid"><%=record[0].name%></a>
-        <a href="bookid"><%=author[0].first_name+" "+author[0].last_name%></a>
+      <a onclick="window.location.href='/categories/<%=name.id%>/<%=record[0].id%>'"><%=record[3].name%></a>
+        <a href="bookid"><%=author[3].first_name+" "+author[3].last_name%></a>
   </div>
   </div>
 
@@ -156,7 +155,7 @@
   <script type="text/javascript">
     function back(){
       document.getElementById("bckbtn").onclick = function () {
-          window.location = "/user/categories";
+          window.location = "/categories";
       };
     };
 </script>

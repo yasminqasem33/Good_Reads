@@ -18,9 +18,16 @@ const adminSchema =  new mongoose.Schema(
 
 const adminModel = mongoose.model('adminSchema',adminSchema)
 
-
+// adminModel.create(
+//     {
+//     name:"yasmin"
+//     ,
+//     password:"12345"}
+// )
     
-    
+    // adminModel.find().then((data)=>{
+    //     console.log(data)
+    // })
    
     
 
