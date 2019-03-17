@@ -15,7 +15,35 @@ const adminRouter = express.Router()
 adminRouter.use(expressValidator())
 adminRouter.use(passport.initialize());
 adminRouter.use(cookieParser());
+var fs = require('fs');
+var multer = require('multer');
 
+
+
+//=============================================
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads');
+    },
+    filename: function (req, file, cb) {
+        cb(null, new Date().toISOString() + file.originalname);
+    }
+});
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') 
+        cb(null, true);
+    else 
+        cb(null, false);  
+}
+const upload = multer({
+    storage: storage,
+    limits: {fileSize: 1024 * 1024 * 5},
+    fileFilter: fileFilter
+});
+
+
+
+//=====================================================
 adminRouter.get('/', (req, res) => {
     res.render('pages/adminsignin.ejs')
 });
@@ -252,18 +280,19 @@ adminRouter.get('/books/:id/deleteBook', (req, res) => {
         })
 
 })
-adminRouter.post('/books/add_save', (req, res) => {
+adminRouter.post('/books/add_save',upload.single('image'), (req, res) => {
 
     bookModel.findOne({ name: req.body.name })
         .then((book) => {
-            console.log(book)
+           // console.log(book)
             if (book == null) {
                 authorModel.findOne({ first_name: req.body.authors })
                     .then((author) => {
                         categoryModel.findOne({ name: req.body.categories })
                             .then((category) => {
+                                console.log(req.file.path)
                                 bookModel.create({
-                                    image: req.body.image,
+                                    image: req.file.path || !req.file.path,
                                     name: req.body.name,
                                     authorId: author._id,
                                     categoryId: category._id
@@ -319,7 +348,7 @@ adminRouter.get('/authors', (req, res) => {
 })
 
 
-adminRouter.post('/authors/addauthor_andsave', (req, res) => {
+adminRouter.post('/authors/addauthor_andsave',upload.single('image'),(req, res) => {
     authorModel.findOne({ name: req.body.firstname }, function (err, data) {
         console.log(req.body.firstname)
         if(data == null)
@@ -328,7 +357,7 @@ adminRouter.post('/authors/addauthor_andsave', (req, res) => {
                 first_name:req.body.firstname,
                 last_name:req.body.lastname,
                 date_birth:req.body.date_birth,
-                photo: req.body.image
+                photo: req.file.path || !req.file.path
             }).then((user) => {
                 console.log(user)
                 res.redirect('/admin/authors')

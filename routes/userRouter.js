@@ -12,26 +12,37 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 const passport = require('passport');
 require('passport-jwt');
+require('../server');
 const LocalStrategy = require('passport-local').Strategy;
 const autherModel = require('../models/authorModel')
 const cookieParser = require('cookie-parser')
 var fs = require('fs');
 var multer = require('multer');
-var imgPath = '/home/dina/Downloads/imgg.jpg';
 
 //=================middleware=======================
 userRouter.use(passport.initialize());
 userRouter.use(cookieParser());
 //multer
-var storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, __dirname + '/uploads');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads');
     },
-    filename: function (req, file, callback) {
-        callback(null, file.fieldname + '-' + Date.now());
+    filename: function (req, file, cb) {
+        cb(null, new Date().toISOString() + file.originalname);
     }
 });
-var upload = multer({ storage: storage }).array('userPhoto', 8);
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') 
+        cb(null, true);
+    else 
+        cb(null, false);  
+}
+const upload = multer({
+    storage: storage,
+    limits: {fileSize: 1024 * 1024 * 5},
+    fileFilter: fileFilter
+});
+
 
 
 
@@ -40,7 +51,7 @@ userRouter.get('/', (req, res) => {
     res.render("pages/usersignup.ejs")
 })
 
-userRouter.post('/', (req, res) => {
+userRouter.post('/',upload.single('file'), (req, res) => {
     req.checkBody('FirstName', 'First name must be specified.').notEmpty();
     req.checkBody('LastName', 'Last name must be specified.').notEmpty();
     req.checkBody('psw', 'Password must be specified.').notEmpty();
@@ -66,7 +77,8 @@ userRouter.post('/', (req, res) => {
                         lastName: req.body.LastName,
                         email: req.body.email,
                         password: req.body.psw,
-                        userImage: ({ data: fs.readFileSync(imgPath), contentType: 'image/png' }),
+                        userImage: req.file.path || !req.file.path,
+
                     });
                     console.log("3");
                     bcrypt.genSalt(10, (err, salt) => {

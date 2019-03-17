@@ -49,7 +49,7 @@ app.use(bodyParser());
 app.use('/admin',adminRouter);
 app.use('/',userRouter);
 app.use(express.static(__dirname + '/public'));
-app.use( express.static(__dirname + '/uploads') );
+app.use( express.static('uploads') );
 app.listen(ROUTER,()=>
 {
     console.log("Server Started!")
