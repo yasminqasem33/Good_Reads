@@ -14,7 +14,8 @@ const LocalStrategy = require('passport-local');
 const cors = require('cors');
 var jwt = require('jsonwebtoken');
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/good';
-
+var fs = require('fs');
+var multer = require('multer');
 
 
 //required from other files
@@ -48,6 +49,7 @@ app.use(bodyParser());
 app.use('/admin',adminRouter);
 app.use('/',userRouter);
 app.use(express.static(__dirname + '/public'));
+app.use( express.static(__dirname + '/uploads') );
 app.listen(ROUTER,()=>
 {
     console.log("Server Started!")
@@ -66,9 +68,7 @@ const opt = {
 }
 
 passport.use(new JwtStrategy(opt, (payload, done) => {
-
-    //console.log(payload);
-    User.findById(payload._id)
+    user.findById(payload._id)
         .then(user => {
             if (user) {
                 return done(null, user);
@@ -83,7 +83,18 @@ passport.use(new JwtStrategy(opt, (payload, done) => {
 
 }));
 
+var multer  = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
 
+    }
+});
 
+var upload = multer({   storage: storage,
+limits: { fileSize: '50mb' }}).single('photo');
 
 

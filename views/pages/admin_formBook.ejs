@@ -23,8 +23,10 @@
                     <% })%>
               </select>
           <label for="Books"><b>Image</b></label>
-          <input type="text" id="file" name="image">
-          
+          <!-- <input type="file" id="file" name="image"> -->
+              <input type="file" id="file" name="image">
+              
+
           <%}else if(form=="edit"){%>
             <form action="/admin/books/<%=book._id%>/editBook_andsave" method="POST" class="form-container">
               <h1>Edit Book </h1>
@@ -49,8 +51,8 @@
           <label for="Books"><b>Image</b></label>
           <input type="text" id="file" name="image" value="book.image">
             <%}%>
-            <input type="submit" value="Add Book">'
-            <button class="btn" onclick=closeForm2()>close</button>
+            <input class="btn" type="submit" value="Add Book">
+            <button type="button" class="btn cancel" onclick="window.location.href='/admin/books'">Close</button>
         </form>
       </div>
 <% include ../layout/footer %>

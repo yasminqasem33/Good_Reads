@@ -1,8 +1,7 @@
 <% include ../layout/headeradmin %>
 
-<a onclick="window.location.href = '/admin/logout'" >Logout</a>                 
 
-    <button  onclick="window.location.href='/admin/books/add' " style=float:right>add</button>
+    <button  onclick="window.location.href='/admin/books/add' " style=float:right>Add</button>
 
 
     <table style="width:100%">
@@ -34,8 +33,8 @@
             <%= book.authorId %>
         </td>
               <td>
-                    <a onclick="window.location.href = '/admin/books/<%= book._id %>/deleteBook'" value='<%= book._id%>'>delete</a>                 
-                    <a onclick="window.location.href = '/admin/books/<%= book._id %>/editBook'" value='<%= book._id%>'>Edit</a>                 
+                    <a style="color: blue;  text-decoration: underline" onclick="window.location.href = '/admin/books/<%= book._id %>/deleteBook'" value='<%= book._id%>'>Delete</a>                 
+                    <a style="color: blue;  text-decoration: underline" onclick="window.location.href = '/admin/books/<%= book._id %>/editBook'" value='<%= book._id%>'>Edit</a>                 
               </td>
           </tr>
           <% })%>

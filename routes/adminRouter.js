@@ -2,14 +2,18 @@ const express = require('express')
 const categoryModel = require('../models/categoryModel')
 const authorModel = require('../models/authorModel')
 const bookModel = require('../models/bookModel')
+const adminModel = require('../models/adminModel')
 const url = require('url');
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
+const passport = require('passport');
+require('passport-jwt');
+const LocalStrategy = require('passport-local').Strategy;
 const bcrypt=require('bcrypt')
 const cookieParser = require('cookie-parser')
 var expressValidator = require('express-validator');
 const adminRouter = express.Router()
 adminRouter.use(expressValidator())
+adminRouter.use(passport.initialize());
 adminRouter.use(cookieParser());
 
 adminRouter.get('/', (req, res) => {
@@ -17,59 +21,59 @@ adminRouter.get('/', (req, res) => {
 });
 
 adminRouter.post('/', (req, res) => {
-    if (req.body.name == "yasmin" && req.body.password == "12345") {
-        res.redirect('admin/categories')
-    }
-    else {
-        res.redirect('/admin')
-    }
-
+    const name = req.body.name;
+    const password =req.body.password
+            adminModel.findOne({ name: name ,password : password })
+            .then(user => {
+                if (!user) {
+                    res.status(404).json({ name: 'not admin' });
+                } else {
+                    let user ={
+                        name: name
+                                }
+        jwt.sign(user,"dina", { expiresIn: 400 }, (err, token) => {
+        if (!err) {
+            console.log(user)
+            let auth ={
+                userdata: user,
+                token: token
+            }
+            res.cookie("userData", auth); 
+            res.redirect('/admin/categories')
+        } else {
+            console.log("not admin")
+            res.json({ err: err });
+        }
+});
+                }
+            })
 })
 
-// adminRouter.post('/', (req, res) => {
-//     const name = req.body.name;
-//     const password = req.body.password;    
-// let user ={
-//     name:name,
-//     password:password
-// }
-//     jwt.sign(user, keys.secretOrKey, { expiresIn: 100 }, (err, token) => {
-//         if (!err) {
-//             res.cookie("tok", token); 
-//             console.log(res.cookies.tok)
-//             res.redirect('/admin/categories')
-//         } else {
-//             console.log("not admin")
-//             res.json({ err: err });
-//         }
-// });
-// })
 
 
-
-// adminRouter.use(function(req,res,next)
-// {
-//     console.log("this is middleware")
-//     if(!req.cookies.tok ){
-//     res.redirect('/admin')
-//   }  
-//   else if (req.cookies.token ){
-//         jwt.verify(tok,keys.secretOrKey,function(err,decoded){
-//             if (err){
-//                 res.redirect('/admin')
-//             }
-//            // req.decoded=decoded;
-//         next();
-//         })
-//     }
-//     else{
-//         res.redirect('/admin')
-//     }
-// })
+adminRouter.use(function(req,res,next)
+{
+    console.log("this is middleware")
+    if(!req.cookies.userData){
+    res.redirect('/admin')
+  }  
+  else if (req.cookies.userData){
+        jwt.verify(req.cookies.userData.token,"dina",function(err,decoded){
+            if (err){
+                res.redirect('/admin')
+            }
+           // req.decoded=decoded;
+        next();
+        })
+    }
+    else{
+        res.redirect('/admin')
+    }
+})
 
 
 adminRouter.get('/logout', (req, res,next)=>{  
-    res.clearCookie('token')
+    res.clearCookie('userData')
    res.redirect('/admin')
 })
 
@@ -323,7 +327,8 @@ adminRouter.post('/authors/addauthor_andsave', (req, res) => {
             authorModel.create({
                 first_name:req.body.firstname,
                 last_name:req.body.lastname,
-                date_birth:req.body.date_birth
+                date_birth:req.body.date_birth,
+                photo: req.body.image
             }).then((user) => {
                 console.log(user)
                 res.redirect('/admin/authors')
@@ -369,7 +374,8 @@ adminRouter.post('/authors/:id/editauthor_andsave', (req, res) => {
             authorModel.findByIdAndUpdate(req.params.id, {  
                 first_name:req.body.firstname,
                 last_name:req.body.lastname,
-                date_birth:req.body.date_birth
+                date_birth:req.body.date_birth,
+                photo: req.body.image
             })
                 .then((updated) => {
                     console.log("this is id" + req.params.id)

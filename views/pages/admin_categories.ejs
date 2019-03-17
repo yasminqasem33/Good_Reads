@@ -1,8 +1,7 @@
 <% include ../layout/headeradmin %>
 
-<a onclick="window.location.href = '/admin/logout'" >Logout</a>                 
 
-    <button  onclick="window.location.href='/admin/categories/addCategories'" style=float:right>add</button>
+    <button  onclick="window.location.href='/admin/categories/addCategories'" style=float:right>Add</button>
     
     
 
@@ -25,8 +24,8 @@
               
 
                 
-              <a onclick="window.location.href = '/admin/categories/<%= category._id %>/deleteCategory'" value='<%= category._id%>'>delete</a>                 
-              <a onclick= " window.location.href = '/admin/categories/<%= category._id %>/editCategory' "value='<%= category._id%>'>Edit</a>                 
+              <a style="color: blue; text-decoration: underline" onclick="window.location.href = '/admin/categories/<%= category._id %>/deleteCategory'" value='<%= category._id%>'>Delete</a>                 
+              <a style="color: blue; text-decoration: underline" onclick= " window.location.href = '/admin/categories/<%= category._id %>/editCategory' "value='<%= category._id%>'>Edit</a>                 
               
             </td>
         </tr>

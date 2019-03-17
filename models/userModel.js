@@ -11,7 +11,7 @@ const userSchema =  new mongoose.Schema(
             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
         },
         password:{type: String},
-        userImage:{type: String},
+        userImage:{ data: Buffer, contentType: String },
         book:[{bookId:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"bookModel"
