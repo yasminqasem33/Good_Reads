@@ -204,7 +204,7 @@ userRouter.get('/homepage', (req, res) => {   //this URL is just user for test. 
         // res.send(books);
         books.forEach(book => {
             autherModel.findById(book.authorId).then(author => {
-                res.render('pages/userread.ejs', {
+                res.render('pages/userHome.ejs', {
                     books: books,
                     author: author.first_name + " " + author.last_name
                 })
