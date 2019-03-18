@@ -18,7 +18,7 @@ const autherModel = require('../models/authorModel')
 const cookieParser = require('cookie-parser')
 var fs = require('fs');
 var multer = require('multer');
-
+const userbookModel = require('../models/usrBoookModel')
 //=================middleware=======================
 userRouter.use(passport.initialize());
 userRouter.use(cookieParser());
@@ -337,7 +337,45 @@ userRouter.get('/authors/:id', (req, res) => {
 
 
 
+//===========================shelves==================================
+userRouter.post('/homepage/status', (req, res) => {
+    console.log("bookid" + req.body.bookId)
+    console.log(req.body.readingStatus)
 
+    console.log("userid" + req.cookies.userData.userdata._id)
+    console.log("here inside status")
+    userbookModel.findOne({ $and: [{ userId: req.cookies.userData.userdata._id }, { bookId: req.body.bookId }] },
+        (err, bookUser) => {
+            console.log(bookUser)
+            if (bookUser == null) {
+
+                userbookModel.create({
+                    bookId: req.body.bookId,
+                    userId: req.cookies.userData.userdata._id,
+                    stauts: req.body.readingStatus
+                }).then((userbook) => {
+
+                    console.log("created userbook" + userbook)
+
+
+                })
+
+            }
+            else {
+                console.log("prserent")
+
+                userbookModel.updateOne({ userId: req.cookies.userData.userdata._id, bookId: req.body.bookId },
+                    { stauts: req.body.readingStatus }).then((updated) => {
+                        console.log(updated)
+
+                    }).catch("erroe")
+            }
+
+            res.redirect('/homepage')
+
+        })
+
+})
 
 
 module.exports = userRouter

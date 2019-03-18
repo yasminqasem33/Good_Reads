@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/css/main.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+    crossorigin="anonymous"></script>
 </head>
 <body>
       
@@ -20,10 +21,10 @@
                 <input type="text" placeholder="Search..">
               </div>             
               <div class="sidenav">
-                    <a href="">All</a>
-                    <a href="/homepage">Read</a>
-                    <a href="">Current Reading</a>
-                    <a href="">Want to Read</a>
+                <a onclick="window.location.href='/homepage'">All</a>
+                <a onclick="window.location.href='/homepage/read'">Read</a>
+                <a onclick="window.location.href='/homepage/reading'">Current Reading</a>
+                <a onclick="window.location.href='/homepage/wanttoread'">Want To Read</a>
                   </div>
                  <div class="readersTable">
                   <table>
@@ -37,7 +38,7 @@
                         </tr>
                         <% books.forEach((book) => { %>
                         <tr>
-                          <td><%=book.image%></td>
+                          <td class="bookId" id=<%=book._id%>>
                           <td><%=book.name%></td>
                           <td><%=author%></td>
                           <td>
@@ -97,27 +98,27 @@
                                   </div>     
                     </td>
                     <td>
-                        <div class="chooseshelves">
-                                <button class="dropbtn">Dropdown</button>
-                                <div class="dropdown-content">
-                                  <a href="#">shelve 1</a>
-                                  <a href="#">shelve 2</a>
-                                  <a href="#">shelve 3</a>
-                                </div>
-                              </div> 
-                </td>
+                      <select name="combo" >
+                        <!-- <option>Choose </option> -->
+                        
+                        <option class="read" id="read" value=<%=book._id%>>Read</option>
+                        <option class="reading" value=<%=book._id%>>Reading</option>
+                        <option class="wanttoread" value=<%=book._id%>>Want To Read</option>
+                      </select>
+                    </td>
+                    <% })%>
                       </tr>
 
-                        <% })%>
+                       
 
                        
                       
                        
-                        </tr>
+                       
                       </table>
                     </div>
 
 
-                    
+                    <script src="/js/rate.js"></script>
     
                   </body>

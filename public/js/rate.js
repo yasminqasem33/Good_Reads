@@ -63,7 +63,7 @@ function reading(read, i) {
     $.ajax
         ({
             type: "POST",
-            url: "http://localhost:5000/hpage/all/status",
+            url: "http://localhost:5000/homepage/status",
             crossDomain: true,
             dataType: "json",
             data: { readingStatus: read, bookId: bookId }
@@ -76,7 +76,7 @@ function staring(star) {
     $.ajax
         ({
             type: "POST",
-            url: "http://localhost:5000/hpage/all/rates",
+            url: "http://localhost:5000/homepage/rates",
             crossDomain: true,
             dataType: "json",
             data: { starValue: star }
