@@ -26,6 +26,9 @@
                 <a onclick="window.location.href='/homepage/reading'">Current Reading</a>
                 <a onclick="window.location.href='/homepage/wanttoread'">Want To Read</a>
                   </div>
+
+
+
                  <div class="readersTable">
                   <table>
                         <tr>
@@ -38,7 +41,7 @@
                         </tr>
                         <% books.forEach((book) => { %>
                         <tr>
-                          <td class="bookId" id=<%=book._id%>>
+                          <td class="bookId" id=<%=book._id%>></td>
                           <td><%=book.name%></td>
                           <td><%=author%></td>
                           <td>
@@ -98,9 +101,7 @@
                                   </div>     
                     </td>
                     <td>
-                      <select name="combo" >
-                        <!-- <option>Choose </option> -->
-                        
+                      <select name="combo" >                        
                         <option class="read" id="read" value=<%=book._id%>>Read</option>
                         <option class="reading" value=<%=book._id%>>Reading</option>
                         <option class="wanttoread" value=<%=book._id%>>Want To Read</option>
