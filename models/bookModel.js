@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const categoryModel= require('../models/categoryModel')
+const authorModel =require('../models/authorModel')
 
 
 
@@ -19,50 +21,18 @@ const bookSchema =  new mongoose.Schema(
         
     }
 )
-const bookModel = mongoose.model('bookSchema',bookSchema)
-
-// const book1=new bookModel({
-//     name:"fbook",
-//     image:"saa",
-//     categoryId:"5c86cf8a1d0f19499b26af75",
-//     authorId:"5c86d16e9c90e159843a1e69",
-//    avgrate: "3"
-//     });
-//      book1.save((err)=>{
-//          if(!err){
-//              console.log(book1);
-//          }else{
-//              console.log("err book 1")
-//          }
-//      }); 
-    
-
-// bookModel.create({
-//     name:"nada",
-//         image:"mohamed",
-//         categoryId:"5c815540480b7716c92485a6",
-//         authorId:" 5c86cea2bafaeb41dd16c2b6"},
-//          function (err, userData) {
-//     if (err) return handleError(err);
-
-//     console.log(userData)
-//          })
-
-// bookModel.remove({}, function (err) {
-//     if (err) return handleError(err);
-
-//     console.log()
-//          })
-
-// bookModel.find().then((data)=>{
-//     console.log(data)
-// })
-
-// bookModel.remove({}, function (err) {
-//          if (err) return handleError(err);
-    
-//          console.log("books deleted")
-//               })
+const bookModel = mongoose.model('bookModel',bookSchema)
+// bookModel.find().then((data)=>{console.log(data)})
+// bookModel.create({image:"sdssd",name:"saas",avgrate:"aasa",categoryId:"5c9298cacd2a9f6e6b25d47d",authorId:"5c9298344905f3676329eff9"}).then((data)=>{console.log(data)})
 
 
+
+
+//=====================================
+
+// let authors=bookModel.find().select('image name').populate('authorId categoryId').then((data)=>{console.log(data[0].authorId)})
+
+
+
+//===================================
 module.exports=bookModel

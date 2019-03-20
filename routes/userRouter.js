@@ -32,14 +32,14 @@ const storage = multer.diskStorage({
     }
 });
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') 
+    if (file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpeg')
         cb(null, true);
-    else 
-        cb(null, false);  
+    else
+        cb(null, false);
 }
 const upload = multer({
     storage: storage,
-    limits: {fileSize: 1024 * 1024 * 5},
+    limits: { fileSize: 1024 * 1024 * 5 },
     fileFilter: fileFilter
 });
 
@@ -51,7 +51,7 @@ userRouter.get('/', (req, res) => {
     res.render("pages/usersignup.ejs")
 })
 
-userRouter.post('/',upload.single('file'), (req, res) => {
+userRouter.post('/', upload.single('file'), (req, res) => {
     req.checkBody('FirstName', 'First name must be specified.').notEmpty();
     req.checkBody('LastName', 'Last name must be specified.').notEmpty();
     req.checkBody('psw', 'Password must be specified.').notEmpty();
@@ -77,7 +77,7 @@ userRouter.post('/',upload.single('file'), (req, res) => {
                         lastName: req.body.LastName,
                         email: req.body.email,
                         password: req.body.psw,
-                        userImage: req.file.path || !req.file.path,
+                        // userImage: req.file.path || !req.file.path,
 
                     });
                     console.log("3");
@@ -199,18 +199,10 @@ userRouter.get('/logout', (req, res, next) => {
 
 
 
-userRouter.get('/homepage', (req, res) => {   //this URL is just user for test. It can be changed.
-    bookmodel.find().then((books) => {
-        // res.send(books);
-        books.forEach(book => {
-            autherModel.findById(book.authorId).then(author => {
-                res.render('pages/userHome.ejs', {
-                    books: books,
-                    author: author.first_name + " " + author.last_name
-                })
-                // console.log(author.first_name+" "+author.last_name);
-            })
-        })
+userRouter.get('/homepage', (req, res) => {
+    bookmodel.find().select('image name').populate('authorId').then((books) => {
+        console.log(books)
+        res.render('pages/userHome.ejs', { books: books ,shelves:"all"})
     })
 })
 
@@ -338,6 +330,28 @@ userRouter.get('/authors/:id', (req, res) => {
 
 
 //===========================shelves==================================
+
+userRouter.get('/homepage/read', (req, res) => {
+    
+
+    userbookModel.find({$and: [{ userId: req.cookies.userData.userdata._id },{stauts:"read"}]}).populate('bookId').select('image name')
+    .populate('bookId authorId').then((books)=>{res.render('pages/userHome.ejs',{books:books,shelves:"read"})})
+})
+
+userRouter.get('/homepage/reading', (req, res) => {
+    
+
+    userbookModel.find({$and: [{ userId: req.cookies.userData.userdata._id },{stauts:"reading"}]}).populate('bookId').select('image name')
+    .populate('bookId authorId').then((books)=>{res.render('pages/userHome.ejs',{books:books,shelves:"reading"})})
+})
+userRouter.get('/homepage/wanttoread', (req, res) => {
+    
+
+    userbookModel.find({$and: [{ userId: req.cookies.userData.userdata._id },{stauts:"wanttoread"}]}).populate('bookId').select('image name')
+    .populate('bookId authorId').then((books)=>{res.render('pages/userHome.ejs',{books:books,shelves:"wanttoread"})})
+})
+
+
 userRouter.post('/homepage/status', (req, res) => {
     console.log("bookid" + req.body.bookId)
     console.log(req.body.readingStatus)
@@ -376,6 +390,7 @@ userRouter.post('/homepage/status', (req, res) => {
         })
 
 })
+
 
 
 module.exports = userRouter
