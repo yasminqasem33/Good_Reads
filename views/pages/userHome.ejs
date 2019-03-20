@@ -41,9 +41,9 @@
                         </tr>
                         <% books.forEach((book) => { %>
                         <tr>
-                          <td class="bookId" id=<%=book._id%>></td>
+                          <td class="bookId" id=<%=book._id%>><%=book.image%> </td>
                           <td><%=book.name%></td>
-                          <td><%=author%></td>
+                          <td><%=book.authorId.first_name%></td>
                           <td>
                             <%const v = "2"%>
                             <%if (v == "0"){%>

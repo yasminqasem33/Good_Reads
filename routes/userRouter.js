@@ -77,7 +77,7 @@ userRouter.post('/',upload.single('file'), (req, res) => {
                         lastName: req.body.LastName,
                         email: req.body.email,
                         password: req.body.psw,
-                        userImage: req.file.path || !req.file.path,
+                        // userImage: req.file.path || !req.file.path,
 
                     });
                     console.log("3");
@@ -199,19 +199,9 @@ userRouter.get('/logout', (req, res, next) => {
 
 
 
-userRouter.get('/homepage', (req, res) => {   //this URL is just user for test. It can be changed.
-    bookmodel.find().then((books) => {
-        // res.send(books);
-        books.forEach(book => {
-            autherModel.findById(book.authorId).then(author => {
-                res.render('pages/userHome.ejs', {
-                    books: books,
-                    author: author.first_name + " " + author.last_name
-                })
-                // console.log(author.first_name+" "+author.last_name);
-            })
-        })
-    })
+userRouter.get('/homepage', (req, res) => { 
+    bookmodel.find().select('image name').populate('authorId').then((books)=>{console.log(books)
+    res.render('pages/userHome.ejs',{books:books})})
 })
 
 //====================================categories================================================
@@ -338,6 +328,8 @@ userRouter.get('/authors/:id', (req, res) => {
 
 
 //===========================shelves==================================
+
+// userRouter.post('/read')
 userRouter.post('/homepage/status', (req, res) => {
     console.log("bookid" + req.body.bookId)
     console.log(req.body.readingStatus)
@@ -376,6 +368,7 @@ userRouter.post('/homepage/status', (req, res) => {
         })
 
 })
+
 
 
 module.exports = userRouter

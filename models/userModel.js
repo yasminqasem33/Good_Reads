@@ -12,37 +12,22 @@ const userSchema =  new mongoose.Schema(
         },
         password:{type: String},
         userImage:{ data: Buffer, contentType: String },
-        book:[{bookId:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"bookModel"
-        }, status:String, rate:String}]
+        // book:[{bookId:{
+        //     type:mongoose.Schema.Types.ObjectId,
+        //     ref:"bookModel"
+        // }, status:String, rate:String}]
 
     }
 )
 
 
 
-//userSchema.plugin(passportlocalmongoose)
-const userModel = mongoose.model('userSchema',userSchema)
 
+const userModel = mongoose.model('userModel',userSchema)
 
+// userModel.create({firstName:"yasmin",lastName:"qasem",email:"yasmin@gmail.com",password:"12345",userImage:"sasa"}).then((user)=>{console.log(user)})
 
 
  module.exports= userModel
 
-
-
-// const user1=new userModel({
-//     firstName:'so',
-//     lastName:'so',
-//     email:'so@com',
-//     userpassword:'12345',
-//     userImage:'23yio',
-//     state:'offline'
-// });
-//  user1.save((err)=>{
-//      if(!err){
-//          console.log("saved");
-//      }
-//  }); 
 
