@@ -28,7 +28,7 @@
               
 
           <%}else if(form=="edit"){%>
-            <form action="/admin/books/<%=book._id%>/editBook_andsave" method="POST" class="form-container">
+            <form action="/admin/books/<%=book._id%>/editBook_andsave" method="POST" class="form-container" enctype="multipart/form-data">
               <h1>Edit Book </h1>
               
           <label for="Books"><b>Book Name</b></label>

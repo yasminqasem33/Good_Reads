@@ -3,9 +3,9 @@
 <div class="form-popup" id="myForm1" style="display:block">
    
     <%if(form=="add"){%>
-    <form action="/admin/categories/addCategory_andsave" method="POST" class="form-container">
+    <form action="/admin/categories/addCategory_andsave" method="POST" class="form-container" enctype="multipart/form-data">
         <%}else if(form=="edit"){%>
-        <form action="/admin/categories/<%=category._id%>/editCategory_andsave" method="POST" class="form-container">
+        <form action="/admin/categories/<%=category._id%>/editCategory_andsave" method="POST" class="form-container" enctype="multipart/form-data">
             <%}%>
             <h1> Add Category</h1>
 

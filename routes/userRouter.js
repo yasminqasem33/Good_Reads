@@ -77,7 +77,7 @@ userRouter.post('/', upload.single('file'), (req, res) => {
                         lastName: req.body.LastName,
                         email: req.body.email,
                         password: req.body.psw,
-                        // userImage: req.file.path || !req.file.path,
+                         userImage: req.file.path || !req.file.path,
 
                     });
                     console.log("3");

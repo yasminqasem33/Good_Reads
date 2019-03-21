@@ -2,9 +2,10 @@
 
 
 <%if(form=="add"){%>
-<form action="/admin/authors/addauthor_andsave" method="POST" class="form-container">
+<form action="/admin/authors/addauthor_andsave" method="POST" class="form-container"  enctype="multipart/form-data">
     <%}else if(form=="edit"){%>
-    <form action="/admin/authors/<%=author._id%>/editauthor_andsave" method="POST" class="form-container">
+    <form action="/admin/authors/<%=author._id%>/editauthor_andsave" method="POST" class="form-container"  enctype="multipart/form-
+        data"> 
         <%}%>
                         
               <h1>Add Author</h1>

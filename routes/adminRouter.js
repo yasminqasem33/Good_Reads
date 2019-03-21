@@ -353,6 +353,11 @@ adminRouter.post('/authors/addauthor_andsave',upload.single('image'),(req, res) 
         console.log(req.body.firstname)
         if(data == null)
         {
+          //  var tempPath = req.file.path
+
+
+    console.log(req.body)
+        
             authorModel.create({
                 first_name:req.body.firstname,
                 last_name:req.body.lastname,
